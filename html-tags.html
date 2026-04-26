@@ -1016,7 +1016,7 @@ function saveScore(tier, score){
 </body>
 </html>
 <script>
-const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbw3vSRW7zOF7Hc8TpVOkc7MjD8N4RyGTatZLE4C7ko721YJdexic4T0XSCM3ILaIO8A/exec';
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwEA_8YVOeJ70SXkkb10Y4ZxQ13tJzqTbsnBtPZ1CpOLFHUUZKu9GGmKgI0ieThj5El/exec';
 function sendToSheet(name, cls, tier, score, grade, q1, q2, q3, q4, q5) {
   if(GOOGLE_SHEET_URL.includes('REPLACE')) return;
   const payload = {name, cls, tier, score, grade, q1, q2, q3, q4, q5, worksheet:'HTML Tags'};
@@ -1041,7 +1041,7 @@ document.addEventListener('click', function(e) {
 </script>
 <script>
 (function(){
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbw3vSRW7zOF7Hc8TpVOkc7MjD8N4RyGTatZLE4C7ko721YJdexic4T0XSCM3ILaIO8A/exec';
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwEA_8YVOeJ70SXkkb10Y4ZxQ13tJzqTbsnBtPZ1CpOLFHUUZKu9GGmKgI0ieThj5El/exec';
   
   function sendToSheet(data) {
     fetch(SHEET_URL, {
