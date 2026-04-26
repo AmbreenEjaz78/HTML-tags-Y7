@@ -1039,3 +1039,44 @@ document.addEventListener('click', function(e) {
   }
 });
 </script>
+<script>
+(function(){
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbw3vSRW7zOF7Hc8TpVOkc7MjD8N4RyGTatZLE4C7ko721YJdexic4T0XSCM3ILaIO8A/exec';
+  
+  function sendToSheet(data) {
+    fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    }).catch(() => {});
+  }
+
+  // Watch for score input changes (HTML tags uses manual score entry)
+  function hookScoreInputs() {
+    ['t1-score','t2-score','t3-score'].forEach(function(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('change', function() {
+        const score = parseInt(el.value) || 0;
+        const tierNum = id.replace('t','').replace('-score','');
+        const tierLabel = tierNum==='1'?'Tier 1 — Support':tierNum==='2'?'Tier 2 — Core':'Tier 3 — Extension';
+        const name = document.getElementById('t'+tierNum+'-name')?.value || 'Anonymous';
+        const cls  = document.getElementById('t'+tierNum+'-class')?.value || '—';
+        const grade = score>=18?'Outstanding / E':score>=15?'Exceeds / M+':score>=11?'Meets / M':'Below / B';
+        sendToSheet({
+          name, cls,
+          worksheet: 'HTML Tags',
+          tier: tierLabel,
+          score, grade,
+          q1:'—', q2:'—', q3:'—', q4:'—', q5:'—'
+        });
+      });
+    });
+  }
+  
+  // Also hook the print button as submission signal
+  document.addEventListener('DOMContentLoaded', hookScoreInputs);
+  setTimeout(hookScoreInputs, 1000);
+})();
+</script>

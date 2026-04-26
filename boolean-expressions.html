@@ -1284,3 +1284,54 @@ window.saveSubmission = function(tier, score, qs, name) {
     .catch(()=>{});
 };
 </script>
+<script>
+(function(){
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbw3vSRW7zOF7Hc8TpVOkc7MjD8N4RyGTatZLE4C7ko721YJdexic4T0XSCM3ILaIO8A/exec';
+  
+  function sendToSheet(data) {
+    // Method 1: no-cors fetch (works for sending, can't read response)
+    fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    }).catch(() => {
+      // Method 2: form submission fallback
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = SHEET_URL;
+      form.target = 'hidden_iframe';
+      form.style.display = 'none';
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'data';
+      input.value = JSON.stringify(data);
+      form.appendChild(input);
+      document.body.appendChild(form);
+      form.submit();
+      setTimeout(() => form.remove(), 3000);
+    });
+  }
+
+  // Override saveSubmission
+  const origSave = window.saveSubmission;
+  window.saveSubmission = function(tier, score, qs, name) {
+    if(origSave) origSave(tier, score, qs, name);
+    const tierLabel = tier==='t1'?'Tier 1 — Support':tier==='t2'?'Tier 2 — Core':'Tier 3 — Extension';
+    const g = window.gradeInfo ? gradeInfo(score) : {label:'—'};
+    sendToSheet({
+      name: name || (window.currentUser ? currentUser.name : 'Anonymous'),
+      cls:  window.currentUser ? currentUser.cls : '—',
+      worksheet: 'Boolean Expressions',
+      tier: tierLabel,
+      score: score,
+      grade: g.label,
+      q1: qs[0] ? qs[0].earned+'/'+qs[0].max : '—',
+      q2: qs[1] ? qs[1].earned+'/'+qs[1].max : '—',
+      q3: qs[2] ? qs[2].earned+'/'+qs[2].max : '—',
+      q4: qs[3] ? qs[3].earned+'/'+qs[3].max : '—',
+      q5: qs[4] ? qs[4].earned+'/'+qs[4].max : '—'
+    });
+  };
+})();
+</script>
