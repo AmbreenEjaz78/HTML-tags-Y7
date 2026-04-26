@@ -194,7 +194,7 @@
 <!-- TOP BAR -->
 <div class="topbar">
   <div class="topbar-left">
-    <span class="badge">Grade 9</span>
+    <span class="badge">Year 7</span>
     <span class="topbar h1" style="font-size:15px;font-weight:600;">HTML Tags – Interactive Worksheet</span>
   </div>
   <div class="topbar-right">
@@ -202,6 +202,7 @@
     <button class="icon-btn" onclick="switchTab('t2')">🟡 Tier 2</button>
     <button class="icon-btn" onclick="switchTab('t3')">🔴 Tier 3</button>
     <button class="icon-btn" onclick="switchTab('rubric')">📋 Rubric</button>
+    <button class="icon-btn" onclick="switchTab('progress')">📈 Progress</button>
     <button class="icon-btn" onclick="saveAll()">💾 Save</button>
     <button class="icon-btn" onclick="clearAll()">🗑 Clear</button>
     <button class="icon-btn" onclick="window.print()">🖨️ Print</button>
@@ -222,6 +223,7 @@
   <button class="tab t2" onclick="switchTab('t2')">🟡 Tier 2</button>
   <button class="tab t3" onclick="switchTab('t3')">🔴 Tier 3</button>
   <button class="tab rubric" onclick="switchTab('rubric')">📋 Rubric</button>
+  <button class="tab" id="tab-progress" onclick="switchTab('progress');renderProgress()">📈 Progress</button>
 </div>
 
 <!-- ═══════════════════════════════════════════════
@@ -230,7 +232,7 @@
 <div class="panel active" id="panel-t1">
 
   <div class="sheet-header">
-    <div class="sheet-meta">Grade 9 · Computer Science · Lesson 7</div>
+    <div class="sheet-meta">Year 7 · Computer Science · Lesson 7</div>
     <div class="sheet-title"># HTML Tags Interactive Worksheet</div>
     <div class="sheet-sub">
       <span class="meta-pill pill-topic"><strong>Topic</strong> Structure &amp; Presentation in HTML</span>
@@ -383,7 +385,7 @@
     <div class="reflect-item"><label>🎯 Next time I will…</label><textarea class="q-input" id="t1-r3" oninput="updateProgress()" style="min-height:60px;"></textarea></div>
   </div>
 
-  <div class="sheet-footer">Lesson 7 · HTML Tags · <strong>Tier 1 — Support</strong><br/>Grade 9 · Computer Science</div>
+  <div class="sheet-footer">Lesson 7 · HTML Tags · <strong>Tier 1 — Support</strong><br/>Year 7 · Computer Science</div>
 </div>
 
 <!-- ═══════════════════════════════════════════════
@@ -392,7 +394,7 @@
 <div class="panel" id="panel-t2">
 
   <div class="sheet-header">
-    <div class="sheet-meta">Grade 9 · Computer Science · Lesson 7</div>
+    <div class="sheet-meta">Year 7 · Computer Science · Lesson 7</div>
     <div class="sheet-title"># HTML Tags Interactive Worksheet</div>
     <div class="sheet-sub">
       <span class="meta-pill pill-topic"><strong>Topic</strong> Structure &amp; Presentation in HTML</span>
@@ -487,7 +489,7 @@
     <div class="reflect-item"><label>⭐ My strongest answer was…</label><textarea class="q-input" id="t2-r3" oninput="updateProgress()" style="min-height:60px;"></textarea></div>
   </div>
 
-  <div class="sheet-footer">Lesson 7 · HTML Tags · <strong>Tier 2 — Core</strong><br/>Grade 9 · Computer Science</div>
+  <div class="sheet-footer">Lesson 7 · HTML Tags · <strong>Tier 2 — Core</strong><br/>Year 7 · Computer Science</div>
 </div>
 
 <!-- ═══════════════════════════════════════════════
@@ -496,7 +498,7 @@
 <div class="panel" id="panel-t3">
 
   <div class="sheet-header">
-    <div class="sheet-meta">Grade 9 · Computer Science · Lesson 7</div>
+    <div class="sheet-meta">Year 7 · Computer Science · Lesson 7</div>
     <div class="sheet-title"># HTML Tags Interactive Worksheet</div>
     <div class="sheet-sub">
       <span class="meta-pill pill-topic"><strong>Topic</strong> Structure &amp; Presentation in HTML</span>
@@ -609,17 +611,20 @@
     <div class="reflect-item"><label>💬 Reviewer Name &amp; Date</label><input class="q-input" id="t3-r3" oninput="updateProgress()" style="width:100%;"/></div>
   </div>
 
-  <div class="sheet-footer">Lesson 7 · HTML Tags · <strong>Tier 3 — Extension</strong><br/>Grade 9 · Computer Science</div>
+  <div class="sheet-footer">Lesson 7 · HTML Tags · <strong>Tier 3 — Extension</strong><br/>Year 7 · Computer Science</div>
 </div>
 
 <!-- ═══════════════════════════════════════════════
      RUBRIC — TEACHER
 ═══════════════════════════════════════════════ -->
+<div class="panel" id="panel-progress">
+</div>
+
 <div class="panel" id="panel-rubric">
-  <div class="teacher-note">🔒 <strong>Teacher Reference</strong> · Grade 9 · Lesson 7 · HTML Tags · All Tiers — 20 Marks Each</div>
+  <div class="teacher-note">🔒 <strong>Teacher Reference</strong> · Year 7 · Lesson 7 · HTML Tags · All Tiers — 20 Marks Each</div>
 
   <div class="sheet-header" style="margin-bottom:1.25rem;">
-    <div class="sheet-meta">Teacher Reference · Grade 9 · Lesson 7</div>
+    <div class="sheet-meta">Teacher Reference · Year 7 · Lesson 7</div>
     <div class="sheet-title"># Marking Rubric &amp; Assessment Guide</div>
     <div class="sheet-sub">
       <span class="meta-pill pill-topic"><strong>Lesson</strong> HTML Tags</span>
@@ -692,7 +697,7 @@
     </table>
   </div>
 
-  <div class="sheet-footer">Lesson 7 · HTML Tags · <strong>Teacher Marking Guide</strong><br/>Grade 9 · Computer Science · 🔒 Teacher Copy</div>
+  <div class="sheet-footer">Lesson 7 · HTML Tags · <strong>Teacher Marking Guide</strong><br/>Year 7 · Computer Science · 🔒 Teacher Copy</div>
 </div>
 
 <script>
@@ -798,6 +803,205 @@ document.addEventListener('click',e=>{if(e.target.classList.contains('sort-btn')
 // ── INIT ──
 loadSaved();
 updateProgress();
+</script>
+
+<style>
+/* ── PROGRESS TAB STYLES ── */
+#tab-progress.active{color:#6366f1;border-bottom-color:#6366f1}
+.prog-header{background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:10px;padding:20px 24px;color:white;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.prog-header h2{font-size:18px;font-weight:700;margin-bottom:3px}
+.prog-header p{font-size:12px;opacity:.8}
+.prog-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px}
+.prog-stat{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 16px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.prog-stat .val{font-size:26px;font-weight:700;line-height:1;margin-bottom:4px}
+.prog-stat .lbl{font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.05em}
+.prog-tier-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.prog-tier-hdr{padding:12px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #f0f0f0}
+.prog-tier-hdr .tier-icon{font-size:20px}
+.prog-tier-hdr .tier-name{font-size:14px;font-weight:700;flex:1}
+.prog-tier-hdr .tier-pct{font-size:13px;font-weight:600;color:#6366f1}
+.prog-bar-row{padding:8px 18px 14px;display:flex;align-items:center;gap:10px}
+.prog-bar-bg{flex:1;height:10px;background:#f3f4f6;border-radius:100px;overflow:hidden}
+.prog-bar-fill{height:100%;border-radius:100px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.prog-q-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;padding:0 18px 16px}
+.prog-q{background:#f9fafb;border:1px solid #e5e7eb;border-radius:6px;padding:8px 10px;font-size:12px}
+.prog-q-lbl{font-weight:600;color:#374151;margin-bottom:3px}
+.prog-q-bar{height:5px;border-radius:100px;background:#e5e7eb;overflow:hidden;margin-bottom:3px}
+.prog-q-fill{height:100%;border-radius:100px}
+.prog-q-val{font-size:11px;color:#6b7280}
+.prog-score-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:18px 20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.prog-score-card h3{font-size:13px;font-weight:700;color:#374151;margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em}
+.prog-submit-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:14px}
+.prog-submit-btn{background:#6366f1;color:white;border:none;border-radius:6px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.prog-submit-btn:hover{background:#4f46e5}
+.prog-grade-pill{display:inline-block;font-size:12px;font-weight:700;padding:3px 11px;border-radius:100px}
+.prog-empty{text-align:center;padding:40px 20px;color:#9ca3af;font-size:14px}
+.prog-tip{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px;font-size:12px;color:#1d4ed8;margin-bottom:16px}
+</style>
+
+<script>
+function renderProgress(){
+  const panel = document.getElementById('panel-progress');
+
+  // Count filled fields per tier
+  function tierProgress(prefix, qIds){
+    let filled=0, total=qIds.length;
+    qIds.forEach(id=>{
+      const el=document.getElementById(id);
+      if(el && el.value && el.value.trim().length>0) filled++;
+    });
+    return {filled, total, pct: total ? Math.round(filled/total*100) : 0};
+  }
+
+  // ── Real field IDs from the worksheet ──
+  const t1Qs = [
+    {label:'Q1 – Complete sentence', ids:['t1q1a','t1q1b']},
+    {label:'Q2 – Sort tags', ids:['t1q2r1-y','t1q2r2-n','t1q2r3-y','t1q2r4-n'], sortCheck:true},
+    {label:'Q3 – Fill HTML tags', ids:['t1q3a','t1q3a2','t1q3b','t1q3b2','t1q3c','t1q3c2']},
+    {label:'Q4 – Write own HTML', ids:['t1q4']},
+    {label:'Q5 – Explain', ids:['t1q5a','t1q5b']},
+  ];
+  const t2Qs = [
+    {label:'Q1 – Define & explain', ids:['t2q1']},
+    {label:'Q2 – Classify tags', ids:['t2q2r1-reason','t2q2r2-reason','t2q2r3-reason','t2q2r4-reason','t2q2r5-reason','t2q2r6-reason']},
+    {label:'Q3 – Profile page HTML', ids:['t2q3']},
+    {label:'Q4 – Nav menu HTML', ids:['t2q4']},
+    {label:'Q5 – Evaluate & respond', ids:['t2q5']},
+  ];
+  const t3Qs = [
+    {label:'Q1 – Analogy', ids:['t3q1']},
+    {label:'Q2 – Design challenge', ids:['t3q2','t3q2b']},
+    {label:'Q3 – Accessibility', ids:['t3q3','t3q3b']},
+    {label:'Q4 – Debug & evaluate', ids:['t3q4a','t3q4b']},
+    {label:'Q5 – Real-world app', ids:['t3q5a','t3q5b']},
+  ];
+
+  function countFilled(qList){
+    let filled=0, total=0;
+    qList.forEach(q=>{
+      if(q.sortCheck){
+        // count each sort-btn pair as one question field
+        const pairs = ['t1q2r1','t1q2r2','t1q2r3','t1q2r4'];
+        pairs.forEach(p=>{
+          total++;
+          const yBtn=document.getElementById(p+'-y');
+          const nBtn=document.getElementById(p+'-n');
+          if((yBtn&&yBtn.classList.contains('yes-sel'))||(nBtn&&nBtn.classList.contains('no-sel'))) filled++;
+        });
+      } else {
+        q.ids.forEach(id=>{
+          total++;
+          const el=document.getElementById(id);
+          if(el && (el.value||'').trim().length>0) filled++;
+        });
+      }
+    });
+    return {filled, total, pct: total ? Math.round(filled/total*100) : 0};
+  }
+
+  const p1=countFilled(t1Qs), p2=countFilled(t2Qs), p3=countFilled(t3Qs);
+  const totalFilled=p1.filled+p2.filled+p3.filled;
+  const totalFields=p1.total+p2.total+p3.total;
+  const overallPct=totalFields?Math.round(totalFilled/totalFields*100):0;
+
+  const tierData=[
+    {name:'Tier 1 — Support',icon:'🟢',color:'#16a34a',bg:'#dcfce7',qs:t1Qs,p:p1},
+    {name:'Tier 2 — Core',icon:'🟡',color:'#d97706',bg:'#fef9c3',qs:t2Qs,p:p2},
+    {name:'Tier 3 — Extension',icon:'🔴',color:'#dc2626',bg:'#fee2e2',qs:t3Qs,p:p3},
+  ];
+
+  // Get saved scores
+  function getScore(tier){
+    try{return JSON.parse(localStorage.getItem('html-scores-'+tier)||'null');}catch(e){return null;}
+  }
+
+  let tiersHtml = tierData.map(t=>{
+    const qBars = t.qs.map(q=>{
+      let qFilled=0, qTotal=0;
+      if(q.sortCheck){
+        ['t1q2r1','t1q2r2','t1q2r3','t1q2r4'].forEach(p=>{
+          qTotal++;
+          const yBtn=document.getElementById(p+'-y');
+          const nBtn=document.getElementById(p+'-n');
+          if((yBtn&&yBtn.classList.contains('yes-sel'))||(nBtn&&nBtn.classList.contains('no-sel')))qFilled++;
+        });
+      } else {
+        q.ids.forEach(id=>{qTotal++;const el=document.getElementById(id);if(el&&(el.value||'').trim().length>0)qFilled++;});
+      }
+      const qPct=qTotal?Math.round(qFilled/qTotal*100):0;
+      const c=qPct===100?t.color:qPct>0?'#f59e0b':'#e5e7eb';
+      const status=qPct===100?'✅':qPct>0?'✏️':'○';
+      return `<div class="prog-q">
+        <div class="prog-q-lbl">${status} ${q.label}</div>
+        <div class="prog-q-bar"><div class="prog-q-fill" style="width:${qPct}%;background:${c}"></div></div>
+        <div class="prog-q-val">${qFilled}/${qTotal} fields</div>
+      </div>`;
+    }).join('');
+    return `<div class="prog-tier-card">
+      <div class="prog-tier-hdr">
+        <span class="tier-icon">${t.icon}</span>
+        <span class="tier-name">${t.name}</span>
+        <span class="tier-pct">${t.p.pct}% complete</span>
+      </div>
+      <div class="prog-bar-row">
+        <div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${t.p.pct}%;background:${t.color}"></div></div>
+        <span style="font-size:12px;color:#6b7280;white-space:nowrap">${t.p.filled}/${t.p.total} fields</span>
+      </div>
+      <div class="prog-q-grid">${qBars}</div>
+    </div>`;
+  }).join('');
+
+  // Score summary
+  const scores=[1,2,3].map(n=>{
+    const s=getScore(n);
+    if(!s) return `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:13px"><span>Tier ${n}</span><span style="color:#9ca3af;font-size:12px">Not yet submitted</span></div>`;
+    const g=s>=18?{l:'Outstanding / E',c:'#16a34a',bg:'#dcfce7'}:s>=15?{l:'Exceeds / M+',c:'#d97706',bg:'#fef9c3'}:s>=11?{l:'Meets / M',c:'#7c6800',bg:'#fefce8'}:{l:'Below / B',c:'#dc2626',bg:'#fee2e2'};
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f0f0f0">
+      <span style="font-size:13px;font-weight:500">Tier ${n}</span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:15px;font-weight:700;color:${g.c}">${s}/20</span>
+        <span class="prog-grade-pill" style="background:${g.bg};color:${g.c}">${g.l}</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  panel.innerHTML = `
+  <div style="max-width:760px;margin:0 auto">
+    <div class="prog-header">
+      <div>
+        <h2>📈 My Progress</h2>
+        <p>HTML Tags · Year 7 · Computer Science · Lesson 7</p>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:32px;font-weight:700;line-height:1">${overallPct}%</div>
+        <div style="font-size:12px;opacity:.8">overall completion</div>
+      </div>
+    </div>
+
+    <div class="prog-stats">
+      <div class="prog-stat"><div class="val" style="color:#6366f1">${totalFilled}</div><div class="lbl">Fields filled</div></div>
+      <div class="prog-stat"><div class="val" style="color:#16a34a">${p1.pct}%</div><div class="lbl">Tier 1</div></div>
+      <div class="prog-stat"><div class="val" style="color:#d97706">${p2.pct}%</div><div class="lbl">Tier 2</div></div>
+      <div class="prog-stat"><div class="val" style="color:#dc2626">${p3.pct}%</div><div class="lbl">Tier 3</div></div>
+    </div>
+
+    <div class="prog-tip">💡 <strong>Tip:</strong> Questions marked ✅ are fully complete · ✏️ partially answered · ○ not yet started. Go back to any tier to complete them!</div>
+
+    ${tiersHtml}
+
+    <div class="prog-score-card">
+      <h3>Submitted Scores</h3>
+      ${scores}
+      <div style="margin-top:8px;font-size:11px;color:#9ca3af">Scores appear here after you click "Submit & See My Score" on each tier.</div>
+    </div>
+  </div>`;
+}
+
+// Patch submit to save scores for progress tab
+const _origSubmit = window.submitTier || null;
+function saveScore(tier, score){
+  try{ localStorage.setItem('html-scores-'+tier, JSON.stringify(score)); }catch(e){}
+}
 </script>
 </body>
 </html>
