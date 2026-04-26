@@ -1,1007 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>HTML Tags – Interactive Worksheet</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Science Worksheets — Mrs Ejaz</title>
+<link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --green: #16a34a; --green-bg: #f0fdf4; --green-border: #bbf7d0;
-    --yellow: #ca8a04; --yellow-bg: #fefce8; --yellow-border: #fde68a;
-    --red: #dc2626; --red-bg: #fef2f2; --red-border: #fecaca;
-    --blue: #2563eb; --blue-bg: #eff6ff; --blue-border: #bfdbfe;
-    --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb;
-    --gray-400: #9ca3af; --gray-600: #4b5563; --gray-800: #1f2937;
-    --font: 'DM Sans', sans-serif; --mono: 'DM Mono', monospace;
-    --radius: 10px; --radius-sm: 6px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--font); background: var(--gray-50); color: var(--gray-800); font-size: 15px; line-height: 1.6; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --purple:#6264a7;--purple-dark:#464775;--purple-light:#e8e8f4;
+  --green:#107c10;--green-light:#dff6dd;
+  --amber:#8a4000;--amber-light:#fff4ce;
+  --red:#c50f1f;--red-light:#fde7e9;
+  --blue:#0078d4;--blue-light:#deecf9;
+  --bg:#f5f5f5;--white:#fff;
+  --border:#d1d1d1;--text:#242424;--soft:#616161;
+  --shadow:0 2px 8px rgba(0,0,0,.1);
+  --radius:8px;
+}
+body{font-family:'Segoe UI',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
-  /* ── TOP BAR ── */
-  .topbar { background: #fff; border-bottom: 1px solid var(--gray-200); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 0; z-index: 100; }
-  .topbar-left { display: flex; align-items: center; gap: 12px; }
-  .badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); letter-spacing: .03em; }
-  .topbar h1 { font-size: 15px; font-weight: 600; color: var(--gray-800); }
-  .topbar-right { display: flex; gap: 8px; }
-  .icon-btn { background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 6px 12px; font-family: var(--font); font-size: 13px; cursor: pointer; color: var(--gray-600); transition: background .15s; display: flex; align-items: center; gap: 5px; }
-  .icon-btn:hover { background: var(--gray-200); }
-  .save-toast { font-size: 12px; color: var(--green); font-weight: 500; opacity: 0; transition: opacity .4s; }
+/* ── SHARED NAV ── */
+.cs-nav{background:var(--purple-dark);height:52px;display:flex;align-items:center;padding:0 24px;gap:0;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.cs-nav-brand{display:flex;align-items:center;gap:10px;color:white;font-size:14px;font-weight:600;text-decoration:none;margin-right:24px;flex-shrink:0}
+.cs-nav-brand svg{flex-shrink:0}
+.cs-nav-links{display:flex;align-items:center;gap:2px;flex:1;overflow-x:auto}
+.cs-nav-link{color:rgba(255,255,255,.75);font-size:13px;font-weight:500;padding:6px 14px;border-radius:4px;text-decoration:none;transition:all .15s;white-space:nowrap;border:none;background:none;cursor:pointer;font-family:inherit}
+.cs-nav-link:hover{background:rgba(255,255,255,.12);color:white}
+.cs-nav-link.active{background:rgba(255,255,255,.18);color:white;font-weight:600}
+.cs-nav-right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.cs-nav-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-size:11px;padding:3px 10px;border-radius:2px}
 
-  /* ── PROGRESS ── */
-  .progress-wrap { background: #fff; border-bottom: 1px solid var(--gray-200); padding: 10px 1.5rem; display: flex; align-items: center; gap: 12px; }
-  .progress-label { font-size: 12px; color: var(--gray-400); font-weight: 500; min-width: 60px; }
-  .progress-bar { flex: 1; height: 8px; background: var(--gray-200); border-radius: 4px; overflow: hidden; }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #16a34a); border-radius: 4px; transition: width .5s; width: 0%; }
-  .progress-pct { font-size: 12px; color: var(--gray-600); font-weight: 600; min-width: 32px; text-align: right; }
+/* ── HERO ── */
+.hero{background:var(--purple-dark);padding:48px 24px 56px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 50% 60%,rgba(99,102,167,.35) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:12px}
+.hero h1{font-size:clamp(24px,5vw,40px);font-weight:700;color:white;margin-bottom:8px;line-height:1.15}
+.hero h1 span{color:#a5b4fc}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.6);margin-top:10px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.6}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+.hero-chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.75);font-size:11px;padding:3px 12px;border-radius:100px}
 
-  /* ── TABS ── */
-  .tabs { display: flex; gap: 0; background: #fff; border-bottom: 2px solid var(--gray-200); padding: 0 1.5rem; overflow-x: auto; }
-  .tab { padding: 12px 18px; font-size: 13px; font-weight: 500; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; white-space: nowrap; color: var(--gray-400); transition: color .15s, border-color .15s; background: none; border-top: none; border-left: none; border-right: none; font-family: var(--font); }
-  .tab:hover { color: var(--gray-600); }
-  .tab.active { color: var(--gray-800); border-bottom-color: var(--gray-800); }
-  .tab.t1.active { color: var(--green); border-bottom-color: var(--green); }
-  .tab.t2.active { color: var(--yellow); border-bottom-color: var(--yellow); }
-  .tab.t3.active { color: var(--red); border-bottom-color: var(--red); }
-  .tab.rubric.active { color: var(--blue); border-bottom-color: var(--blue); }
+/* ── PAGE BODY ── */
+.page{max-width:900px;margin:0 auto;padding:32px 20px 80px}
 
-  /* ── PANELS ── */
-  .panel { display: none; max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
-  .panel.active { display: block; }
+/* ── SECTION TITLE ── */
+.section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--soft);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
 
-  /* ── SHEET HEADER ── */
-  .sheet-header { background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; }
-  .sheet-meta { font-size: 12px; color: var(--gray-400); font-weight: 500; letter-spacing: .04em; margin-bottom: 6px; }
-  .sheet-title { font-size: 22px; font-weight: 700; color: var(--gray-800); margin-bottom: 4px; }
-  .sheet-sub { display: flex; gap: 1rem; margin: 10px 0 14px; flex-wrap: wrap; }
-  .meta-pill { font-size: 12px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
-  .pill-topic { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
-  .pill-t1 { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
-  .pill-t2 { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
-  .pill-t3 { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
-  .student-fields { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-  .student-fields label { font-size: 12px; color: var(--gray-400); font-weight: 500; }
-  .student-fields input { width: 100%; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 7px 10px; font-family: var(--font); font-size: 13px; background: var(--gray-50); margin-top: 3px; color: var(--gray-800); }
-  .student-fields input:focus { outline: none; border-color: var(--blue); background: #fff; }
+/* ── WORKSHEET CARDS ── */
+.ws-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:32px}
+.ws-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;text-decoration:none;color:var(--text);transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column}
+.ws-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.13)}
+.ws-card-accent{height:6px}
+.ws-card-body{padding:18px 20px;flex:1}
+.ws-card-tag{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 9px;border-radius:2px;margin-bottom:10px}
+.ws-card h2{font-size:16px;font-weight:700;margin-bottom:5px;color:var(--text)}
+.ws-card p{font-size:12px;color:var(--soft);line-height:1.5;margin-bottom:12px}
+.ws-card-meta{display:flex;gap:8px;flex-wrap:wrap}
+.ws-meta-chip{font-size:11px;color:var(--soft);background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:2px 8px}
+.ws-card-footer{padding:12px 20px;background:var(--bg);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.ws-card-footer span{font-size:12px;color:var(--soft)}
+.ws-open-btn{background:var(--purple);color:white;border:none;border-radius:3px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block;transition:background .15s}
+.ws-open-btn:hover{background:var(--purple-dark)}
 
-  /* ── LEARNING INTENTION ── */
-  .li-box { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
-  .li-box h3 { font-size: 13px; font-weight: 600; color: var(--gray-600); margin-bottom: 8px; }
-  .li-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--gray-600); margin-bottom: 4px; }
-  .li-num { background: var(--gray-200); color: var(--gray-600); border-radius: 50%; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+/* Tier pills inside card */
+.tier-pills{display:flex;gap:5px;margin-top:10px}
+.tp{font-size:10px;font-weight:700;padding:2px 8px;border-radius:2px}
+.tp-green{background:var(--green-light);color:var(--green)}
+.tp-amber{background:var(--amber-light);color:var(--amber)}
+.tp-red{background:var(--red-light);color:var(--red)}
 
-  /* ── TIER BANNER ── */
-  .tier-banner { border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
-  .tier-banner.t1 { background: var(--green-bg); border: 1px solid var(--green-border); }
-  .tier-banner.t2 { background: var(--yellow-bg); border: 1px solid var(--yellow-border); }
-  .tier-banner.t3 { background: var(--red-bg); border: 1px solid var(--red-border); }
-  .tier-banner .tier-icon { font-size: 24px; }
-  .tier-banner h2 { font-size: 16px; font-weight: 700; margin: 2px 0; }
-  .tier-banner.t1 h2 { color: var(--green); }
-  .tier-banner.t2 h2 { color: var(--yellow); }
-  .tier-banner.t3 h2 { color: var(--red); }
-  .tier-banner p { font-size: 12px; color: var(--gray-600); }
-  .instructions { font-size: 13px; background: #fff; border: 1px solid var(--gray-200); border-left: 4px solid var(--blue); padding: 10px 14px; border-radius: var(--radius-sm); margin-top: 10px; color: var(--gray-600); }
+/* ── QUICK STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:28px}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;text-align:center}
+.stat-val{font-size:24px;font-weight:700;line-height:1;margin-bottom:3px}
+.stat-lbl{font-size:11px;color:var(--soft);text-transform:uppercase;letter-spacing:.05em}
 
-  /* ── QUESTION CARD ── */
-  .q-card { background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius); margin-bottom: 1.25rem; overflow: hidden; }
-  .q-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px 0; }
-  .q-num { background: var(--gray-800); color: #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
-  .q-marks { font-size: 11px; color: var(--gray-400); font-weight: 500; background: var(--gray-100); border-radius: 20px; padding: 2px 8px; }
-  .q-body { padding: 12px 16px 16px; }
-  .q-text { font-size: 14px; color: var(--gray-800); margin-bottom: 12px; line-height: 1.6; }
-  .q-text strong { font-weight: 600; }
+/* ── INFO BANNER ── */
+.info-banner{background:var(--blue-light);border:1px solid #bfdbfe;border-radius:var(--radius);padding:12px 16px;font-size:13px;color:#1d4ed8;margin-bottom:24px;display:flex;gap:10px;align-items:flex-start}
+.info-banner svg{flex-shrink:0;margin-top:1px}
 
-  /* ── INPUTS ── */
-  textarea.q-input { width: 100%; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 10px; font-family: var(--font); font-size: 13px; resize: vertical; min-height: 80px; background: var(--gray-50); color: var(--gray-800); line-height: 1.6; }
-  textarea.q-input:focus { outline: none; border-color: var(--blue); background: #fff; }
-  input.q-input { border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 7px 10px; font-family: var(--font); font-size: 13px; background: var(--gray-50); color: var(--gray-800); }
-  input.q-input:focus { outline: none; border-color: var(--blue); background: #fff; }
+/* ── FOOTER ── */
+.site-footer{background:var(--purple-dark);color:rgba(255,255,255,.5);text-align:center;padding:16px;font-size:12px;margin-top:40px}
+.site-footer strong{color:rgba(255,255,255,.8)}
 
-  /* ── CODE BLOCK ── */
-  .code-block { background: #1e1e2e; color: #cdd6f4; border-radius: var(--radius-sm); padding: 14px 16px; font-family: var(--mono); font-size: 12.5px; line-height: 1.8; margin: 10px 0; position: relative; overflow-x: auto; }
-  .code-label { position: absolute; top: 8px; right: 10px; font-size: 10px; font-weight: 600; letter-spacing: .06em; color: #6c7086; }
-  .code-block .cm { color: #6c7086; }
-  .code-block .kw { color: #cba6f7; }
-  .code-block .st { color: #a6e3a1; }
-  .code-block .tg { color: #89b4fa; }
-  .code-block .at { color: #fab387; }
-  .code-block code-input { display: block; width: 100%; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); border-radius: 4px; padding: 4px 8px; color: #cdd6f4; font-family: var(--mono); font-size: 12.5px; margin: 2px 0; }
-
-  /* ── HINT BOX ── */
-  .hint { background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: var(--radius-sm); padding: 8px 12px; font-size: 12px; color: var(--blue); margin-top: 8px; }
-
-  /* ── WORD BANK ── */
-  .wordbank { margin: 10px 0; }
-  .wordbank-label { font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 6px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .chip { background: var(--blue-bg); border: 1px solid var(--blue-border); color: var(--blue); border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 500; cursor: pointer; font-family: var(--mono); transition: background .15s; }
-  .chip:hover { background: #dbeafe; }
-
-  /* ── BLANK FILL ── */
-  .blank { display: inline-block; border-bottom: 2px solid var(--gray-400); min-width: 120px; padding: 0 4px; font-family: var(--mono); font-size: 13px; color: var(--gray-800); background: none; border-top: none; border-left: none; border-right: none; outline: none; text-align: center; }
-  .blank:focus { border-bottom-color: var(--blue); }
-
-  /* ── SORT TABLE ── */
-  .sort-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0; }
-  .sort-table th { background: var(--gray-100); padding: 8px 12px; text-align: left; font-weight: 600; font-size: 12px; color: var(--gray-600); border-bottom: 1px solid var(--gray-200); }
-  .sort-table td { padding: 8px 12px; border-bottom: 1px solid var(--gray-100); vertical-align: middle; }
-  .sort-table tr:last-child td { border-bottom: none; }
-  .sort-btn { border: 1px solid var(--gray-200); background: #fff; border-radius: 20px; padding: 4px 12px; font-size: 12px; cursor: pointer; font-family: var(--font); color: var(--gray-600); margin-right: 4px; transition: all .15s; }
-  .sort-btn:hover { border-color: var(--gray-400); }
-  .sort-btn.yes-sel { background: var(--green-bg); border-color: var(--green-border); color: var(--green); font-weight: 600; }
-  .sort-btn.no-sel { background: var(--red-bg); border-color: var(--red-border); color: var(--red); font-weight: 600; }
-
-  /* ── CODE TEXTAREA ── */
-  .code-textarea { width: 100%; background: #1e1e2e; color: #cdd6f4; border: 1px solid #313244; border-radius: var(--radius-sm); padding: 12px 14px; font-family: var(--mono); font-size: 12.5px; resize: vertical; min-height: 110px; line-height: 1.8; margin-top: 4px; }
-  .code-textarea:focus { outline: none; border-color: #89b4fa; }
-
-  /* ── SCORE ── */
-  .score-box { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
-  .score-box label { font-size: 13px; font-weight: 600; color: var(--gray-600); }
-  .score-input { width: 56px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 5px 8px; font-size: 14px; font-weight: 600; text-align: center; font-family: var(--font); color: var(--gray-800); background: var(--gray-50); }
-  .score-denom { font-size: 14px; color: var(--gray-400); }
-
-  /* ── REFLECTION ── */
-  .reflection { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1.25rem; margin-top: 1.5rem; }
-  .reflection h3 { font-size: 14px; font-weight: 600; color: var(--gray-600); margin-bottom: 12px; }
-  .reflect-item { margin-bottom: 12px; }
-  .reflect-item label { font-size: 13px; color: var(--gray-600); display: block; margin-bottom: 4px; font-weight: 500; }
-
-  /* ── FOOTER ── */
-  .sheet-footer { text-align: center; font-size: 11px; color: var(--gray-400); padding-top: 1.5rem; border-top: 1px solid var(--gray-100); margin-top: 2rem; }
-
-  /* ── RUBRIC ── */
-  .rubric-section { background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
-  .rubric-section h2 { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
-  .rubric-section.t1 h2 { color: var(--green); }
-  .rubric-section.t2 h2 { color: var(--yellow); }
-  .rubric-section.t3 h2 { color: var(--red); }
-  .rubric-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .rubric-table th { background: var(--gray-100); padding: 8px 10px; text-align: left; font-size: 11px; font-weight: 600; color: var(--gray-600); border-bottom: 1px solid var(--gray-200); letter-spacing: .03em; text-transform: uppercase; }
-  .rubric-table td { padding: 9px 10px; border-bottom: 1px solid var(--gray-100); vertical-align: top; color: var(--gray-600); font-size: 13px; line-height: 1.5; }
-  .rubric-table tr:last-child td { border-bottom: none; }
-  .marks-badge { display: inline-block; background: var(--gray-100); color: var(--gray-600); border-radius: 20px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
-  .grade-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .grade-table th { background: var(--gray-800); color: #fff; padding: 8px 12px; text-align: left; font-size: 12px; font-weight: 600; }
-  .grade-table td { padding: 9px 12px; border-bottom: 1px solid var(--gray-100); font-size: 13px; color: var(--gray-600); }
-  .grade-table tr:last-child td { border-bottom: none; }
-  .grade-badge { display: inline-block; border-radius: 20px; padding: 2px 10px; font-size: 12px; font-weight: 700; }
-  .g-out { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
-  .g-exc { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
-  .g-meets { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
-  .g-below { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
-  .divider { border: none; border-top: 1px solid var(--gray-100); margin: 1rem 0; }
-  .teacher-note { background: #fff3cd; border: 1px solid #fde68a; border-radius: var(--radius-sm); padding: 8px 12px; font-size: 12px; color: #92400e; margin-bottom: 1.25rem; }
-
-  @media(max-width:600px){
-    .student-fields { grid-template-columns:1fr; }
-    .tabs { gap:0; }
-    .tab { padding:10px 12px; font-size:12px; }
-  }
-  @media print {
-    .topbar, .tabs, .progress-wrap { display:none!important; }
-    .panel { display:block!important; padding:1rem; }
-    .panel:not(.active) { break-before:page; }
-    .topbar-right { display:none; }
-  }
+@media(max-width:600px){
+  .hero{padding:32px 16px 40px}
+  .page{padding:20px 14px 60px}
+  .cs-nav-brand span{display:none}
+}
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="topbar-left">
-    <span class="badge">Year 7</span>
-    <span class="topbar h1" style="font-size:15px;font-weight:600;">HTML Tags – Interactive Worksheet</span>
+<!-- ── SHARED NAV ── -->
+<nav class="cs-nav">
+  <a class="cs-nav-brand" href="index.html">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <rect width="22" height="22" rx="4" fill="rgba(255,255,255,.2)"/>
+      <path d="M6 7h10M6 11h7M6 15h9" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+    </svg>
+    <span>CS Worksheets</span>
+  </a>
+  <div class="cs-nav-links">
+    <a class="cs-nav-link active" href="index.html">🏠 Home</a>
+    <a class="cs-nav-link" href="boolean-expressions.html">🔵 Boolean Expressions</a>
+    <a class="cs-nav-link" href="html-tags.html">🟠 HTML Tags</a>
   </div>
-  <div class="topbar-right">
-    <button class="icon-btn" onclick="switchTab('t1')">🟢 Tier 1</button>
-    <button class="icon-btn" onclick="switchTab('t2')">🟡 Tier 2</button>
-    <button class="icon-btn" onclick="switchTab('t3')">🔴 Tier 3</button>
-    <button class="icon-btn" onclick="switchTab('rubric')">📋 Rubric</button>
-    <button class="icon-btn" onclick="switchTab('progress')">📈 Progress</button>
-    <button class="icon-btn" onclick="saveAll()">💾 Save</button>
-    <button class="icon-btn" onclick="clearAll()">🗑 Clear</button>
-    <button class="icon-btn" onclick="window.print()">🖨️ Print</button>
-    <span class="save-toast" id="toast">✅ Answers saved!</span>
+  <div class="cs-nav-right">
+    <span class="cs-nav-badge">Year 7 & 9 · Computer Science</span>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-eyebrow">Mrs Ejaz · Computer Science Department</div>
+  <h1>Interactive <span>Worksheet</span> Platform</h1>
+  <p class="hero-sub">Tiered worksheets for Year 7 and Year 9 — complete your work, get instant feedback, and track your progress.</p>
+  <div class="hero-chips">
+    <span class="hero-chip">📅 2025–2026</span>
+    <span class="hero-chip">🎯 20 Marks Per Worksheet</span>
+    <span class="hero-chip">🏫 Computer Science</span>
+    <span class="hero-chip">3 Tiers Per Lesson</span>
   </div>
 </div>
 
-<!-- PROGRESS -->
-<div class="progress-wrap">
-  <span class="progress-label">Progress</span>
-  <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
-  <span class="progress-pct" id="prog-pct">0%</span>
-</div>
+<div class="page">
 
-<!-- TABS -->
-<div class="tabs">
-  <button class="tab t1 active" onclick="switchTab('t1')">🟢 Tier 1</button>
-  <button class="tab t2" onclick="switchTab('t2')">🟡 Tier 2</button>
-  <button class="tab t3" onclick="switchTab('t3')">🔴 Tier 3</button>
-  <button class="tab rubric" onclick="switchTab('rubric')">📋 Rubric</button>
-  <button class="tab" id="tab-progress" onclick="switchTab('progress');renderProgress()">📈 Progress</button>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     TIER 1 — SUPPORT
-═══════════════════════════════════════════════ -->
-<div class="panel active" id="panel-t1">
-
-  <div class="sheet-header">
-    <div class="sheet-meta">Year 7 · Computer Science · Lesson 7</div>
-    <div class="sheet-title"># HTML Tags Interactive Worksheet</div>
-    <div class="sheet-sub">
-      <span class="meta-pill pill-topic"><strong>Topic</strong> Structure &amp; Presentation in HTML</span>
-      <span class="meta-pill pill-t1"><strong>Tier</strong> 1 — Support</span>
-      <span class="meta-pill pill-topic"><strong>Total Marks</strong> 20</span>
-    </div>
-    <div class="student-fields">
-      <div><label>Student Name<input class="q-input" id="t1-name" placeholder="Your name" oninput="updateProgress()"/></label></div>
-      <div><label>Class<input class="q-input" id="t1-class" placeholder="e.g. 9A" oninput="updateProgress()"/></label></div>
-      <div><label>Date<input class="q-input" id="t1-date" placeholder="DD/MM/YYYY" oninput="updateProgress()"/></label></div>
-    </div>
+  <!-- Quick stats -->
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-val" style="color:var(--purple)">2</div><div class="stat-lbl">Worksheets</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:var(--green)">6</div><div class="stat-lbl">Total Tiers</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:var(--amber)">20</div><div class="stat-lbl">Marks Each</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:var(--red)">2</div><div class="stat-lbl">Year Groups</div></div>
   </div>
 
-  <div class="li-box">
-    <h3>🎯 Learning Intention</h3>
-    <p style="font-size:13px;color:var(--gray-600);margin-bottom:8px;">Students will be able to identify and use common HTML tags to structure and format a web page.</p>
-    <div class="li-item"><span class="li-num">1</span> I can recognise what HTML tags are and why we use them.</div>
-    <div class="li-item"><span class="li-num">2</span> I can match HTML tags to their correct purpose.</div>
-    <div class="li-item"><span class="li-num">3</span> I can write simple HTML using the correct tags.</div>
+  <!-- Info -->
+  <div class="info-banner">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="#1d4ed8"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm0 3a1 1 0 110 2 1 1 0 010-2zm0 3a1 1 0 011 1v3a1 1 0 11-2 0V8a1 1 0 011-1z"/></svg>
+    Click a worksheet below to open it. Your teacher will tell you which Tier to complete. Progress saves automatically in your browser — use the same computer to resume your work.
   </div>
 
-  <div class="tier-banner t1">
-    <div class="tier-icon">🟢</div>
-    <h2>Tier 1 — Support Activity</h2>
-    <p>Scaffolded with word bank and hints · Grades E–M</p>
-    <div class="instructions">📌 <strong>Instructions:</strong> Click on answers, type in boxes, and use the Word Bank chips to fill blanks. Your work saves automatically!</div>
-  </div>
+  <!-- Worksheets -->
+  <div class="section-title">Available Worksheets</div>
+  <div class="ws-grid">
 
-  <!-- Q1 -->
-  <div class="q-card">
-    <div class="q-header">
-      <div class="q-num">1</div>
-      <span style="font-size:13px;font-weight:600;color:var(--gray-800);">Complete the sentence using words from the Word Bank.</span>
-      <span class="q-marks">2 marks</span>
-    </div>
-    <div class="q-body">
-      <p class="q-text">What is an HTML tag? Complete the sentence:</p>
-      <p style="font-size:14px;line-height:2.2;color:var(--gray-800);">
-        An HTML tag is a keyword surrounded by
-        <input class="blank" id="t1q1a" oninput="updateProgress()" placeholder="&lt; &gt;"/>
-        brackets that tells the browser how to
-        <input class="blank" id="t1q1b" oninput="updateProgress()" placeholder="..."/>
-        content on a web page.
-      </p>
-      <div class="wordbank">
-        <div class="wordbank-label">💡 Word Bank — click to copy</div>
-        <div class="chips">
-          <span class="chip" onclick="copyChip(this,'t1q1a')">&lt; &gt;</span>
-          <span class="chip" onclick="copyChip(this,'t1q1b')">display</span>
-          <span class="chip" onclick="copyChip(this,'t1q1a')">{ }</span>
-          <span class="chip" onclick="copyChip(this,'t1q1b')">delete</span>
-          <span class="chip" onclick="copyChip(this,'t1q1b')">structure</span>
+    <!-- Boolean Expressions -->
+    <a class="ws-card" href="boolean-expressions.html">
+      <div class="ws-card-accent" style="background:linear-gradient(90deg,#464775,#6264a7)"></div>
+      <div class="ws-card-body">
+        <div class="ws-card-tag" style="background:var(--purple-light);color:var(--purple-dark)">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="var(--purple-dark)"><circle cx="5" cy="5" r="4"/></svg>
+          Year 9 · Lesson 6
+        </div>
+        <h2>Boolean Expressions</h2>
+        <p>Learn how True/False conditions work in Python. Create Boolean variables, write if/else programs, and understand the difference between facts and opinions in code.</p>
+        <div class="ws-card-meta">
+          <span class="ws-meta-chip">🐍 Python</span>
+          <span class="ws-meta-chip">📅 22/04/2026</span>
+          <span class="ws-meta-chip">⏱ 45–60 min</span>
+        </div>
+        <div class="tier-pills">
+          <span class="tp tp-green">Tier 1 · Support</span>
+          <span class="tp tp-amber">Tier 2 · Core</span>
+          <span class="tp tp-red">Tier 3 · Extension</span>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Q2 -->
-  <div class="q-card">
-    <div class="q-header">
-      <div class="q-num">2</div>
-      <span style="font-size:13px;font-weight:600;">Sort the tags — click ✅ Structural or ❌ Presentational for each one.</span>
-      <span class="q-marks">4 marks</span>
-    </div>
-    <div class="q-body">
-      <table class="sort-table">
-        <thead><tr><th>HTML Tag</th><th>Your Answer</th></tr></thead>
-        <tbody>
-          <tr><td><code>&lt;h1&gt;</code> — main heading</td><td><button class="sort-btn" onclick="sortPick(this,'yes','t1q2r1')" id="t1q2r1-y">✅ Structural</button><button class="sort-btn" onclick="sortPick(this,'no','t1q2r1')" id="t1q2r1-n">❌ Presentational</button></td></tr>
-          <tr><td><code>&lt;b&gt;</code> — bold text</td><td><button class="sort-btn" onclick="sortPick(this,'yes','t1q2r2')" id="t1q2r2-y">✅ Structural</button><button class="sort-btn" onclick="sortPick(this,'no','t1q2r2')" id="t1q2r2-n">❌ Presentational</button></td></tr>
-          <tr><td><code>&lt;p&gt;</code> — paragraph</td><td><button class="sort-btn" onclick="sortPick(this,'yes','t1q2r3')" id="t1q2r3-y">✅ Structural</button><button class="sort-btn" onclick="sortPick(this,'no','t1q2r3')" id="t1q2r3-n">❌ Presentational</button></td></tr>
-          <tr><td><code>&lt;i&gt;</code> — italic text</td><td><button class="sort-btn" onclick="sortPick(this,'yes','t1q2r4')" id="t1q2r4-y">✅ Structural</button><button class="sort-btn" onclick="sortPick(this,'no','t1q2r4')" id="t1q2r4-n">❌ Presentational</button></td></tr>
-        </tbody>
-      </table>
-      <div class="hint">💡 <strong>Hint:</strong> Structural tags organise content (headings, paragraphs, lists). Presentational tags change how text looks (bold, italic, colour).</div>
-    </div>
-  </div>
-
-  <!-- Q3 -->
-  <div class="q-card">
-    <div class="q-header">
-      <div class="q-num">3</div>
-      <span style="font-size:13px;font-weight:600;">Fill in the missing HTML tags.</span>
-      <span class="q-marks">4 marks</span>
-    </div>
-    <div class="q-body">
-      <p class="q-text">Complete the HTML snippet by typing the correct tag name in each blank:</p>
-      <div class="code-block">
-        <span class="code-label">HTML</span>
-        <span class="cm">&lt;!-- A main page heading --&gt;</span><br/>
-        <span class="tg">&lt;</span><input id="t1q3a" oninput="updateProgress()" style="display:inline-block;width:80px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:1px 6px;color:#cdd6f4;font-family:var(--mono);font-size:12px;"/><span class="tg">&gt;</span>Welcome to HTML<span class="tg">&lt;/</span><input id="t1q3a2" oninput="updateProgress()" style="display:inline-block;width:80px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:1px 6px;color:#cdd6f4;font-family:var(--mono);font-size:12px;"/><span class="tg">&gt;</span><br/><br/>
-        <span class="cm">&lt;!-- A paragraph of text --&gt;</span><br/>
-        <span class="tg">&lt;</span><input id="t1q3b" oninput="updateProgress()" style="display:inline-block;width:80px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:1px 6px;color:#cdd6f4;font-family:var(--mono);font-size:12px;"/><span class="tg">&gt;</span>HTML stands for HyperText Markup Language.<span class="tg">&lt;/</span><input id="t1q3b2" oninput="updateProgress()" style="display:inline-block;width:80px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:1px 6px;color:#cdd6f4;font-family:var(--mono);font-size:12px;"/><span class="tg">&gt;</span><br/><br/>
-        <span class="cm">&lt;!-- An unordered list item --&gt;</span><br/>
-        <span class="tg">&lt;ul&gt;<br/>&nbsp;&nbsp;&lt;</span><input id="t1q3c" oninput="updateProgress()" style="display:inline-block;width:50px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:1px 6px;color:#cdd6f4;font-family:var(--mono);font-size:12px;"/><span class="tg">&gt;</span>First item<span class="tg">&lt;/</span><input id="t1q3c2" oninput="updateProgress()" style="display:inline-block;width:50px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:1px 6px;color:#cdd6f4;font-family:var(--mono);font-size:12px;"/><span class="tg">&gt;<br/>&lt;/ul&gt;</span>
+      <div class="ws-card-footer">
+        <span>20 marks · 3 tiers · Year 9</span>
+        <span class="ws-open-btn">Open →</span>
       </div>
-      <div class="wordbank">
-        <div class="wordbank-label">💡 Word Bank</div>
-        <div class="chips">
-          <span class="chip">h1</span>
-          <span class="chip">p</span>
-          <span class="chip">li</span>
-          <span class="chip">div</span>
-          <span class="chip">span</span>
-          <span class="chip">ul</span>
+    </a>
+
+    <!-- HTML Tags -->
+    <a class="ws-card" href="html-tags.html">
+      <div class="ws-card-accent" style="background:linear-gradient(90deg,#8a4000,#c7922a)"></div>
+      <div class="ws-card-body">
+        <div class="ws-card-tag" style="background:var(--amber-light);color:var(--amber)">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="var(--amber)"><circle cx="5" cy="5" r="4"/></svg>
+          Year 7 · Lesson 7
+        </div>
+        <h2>HTML Tags</h2>
+        <p>Explore the structure and presentation of web pages. Identify, sort and write common HTML tags — from headings and paragraphs to semantic elements and accessibility.</p>
+        <div class="ws-card-meta">
+          <span class="ws-meta-chip">🌐 HTML</span>
+          <span class="ws-meta-chip">📅 22/04/2026</span>
+          <span class="ws-meta-chip">⏱ 45–60 min</span>
+        </div>
+        <div class="tier-pills">
+          <span class="tp tp-green">Tier 1 · Support</span>
+          <span class="tp tp-amber">Tier 2 · Core</span>
+          <span class="tp tp-red">Tier 3 · Extension</span>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Q4 -->
-  <div class="q-card">
-    <div class="q-header">
-      <div class="q-num">4</div>
-      <span style="font-size:13px;font-weight:600;">Write your own HTML about your school.</span>
-      <span class="q-marks">4 marks</span>
-    </div>
-    <div class="q-body">
-      <p class="q-text">Write a short HTML snippet that includes: a heading with your school name, a paragraph describing it, and one list with 2 items.</p>
-      <textarea class="code-textarea" id="t1q4" oninput="updateProgress()" placeholder="&lt;h1&gt;My School&lt;/h1&gt;&#10;&lt;p&gt;...&lt;/p&gt;&#10;&lt;ul&gt;&#10;  &lt;li&gt;...&lt;/li&gt;&#10;&lt;/ul&gt;"></textarea>
-      <div class="hint">💡 <strong>Hint:</strong> Remember every opening tag needs a matching closing tag. E.g. <code>&lt;p&gt;text&lt;/p&gt;</code></div>
-    </div>
-  </div>
-
-  <!-- Q5 -->
-  <div class="q-card">
-    <div class="q-header">
-      <div class="q-num">5</div>
-      <span style="font-size:13px;font-weight:600;">Explain in your own words.</span>
-      <span class="q-marks">6 marks</span>
-    </div>
-    <div class="q-body">
-      <p class="q-text">Why do HTML tags come in pairs (opening and closing)? Give ONE example of a tag pair and explain what happens if you forget the closing tag.</p>
-      <p style="font-size:12px;font-weight:600;color:var(--gray-400);margin-bottom:4px;">Tag pair example:</p>
-      <textarea class="q-input" id="t1q5a" oninput="updateProgress()" placeholder="e.g. &lt;p&gt; ... &lt;/p&gt;" style="min-height:50px;"></textarea>
-      <p style="font-size:12px;font-weight:600;color:var(--gray-400);margin:8px 0 4px;">My explanation:</p>
-      <textarea class="q-input" id="t1q5b" oninput="updateProgress()" placeholder="Explain in your own words..." style="min-height:100px;"></textarea>
-      <div class="score-box">
-        <label>My Score:</label>
-        <input type="number" class="score-input" id="t1-score" min="0" max="20" placeholder="0"/>
-        <span class="score-denom">/ 20</span>
+      <div class="ws-card-footer">
+        <span>20 marks · 3 tiers · Year 7</span>
+        <span class="ws-open-btn">Open →</span>
       </div>
-    </div>
+    </a>
+
   </div>
 
-  <div class="reflection">
-    <h3>🪞 Self-Reflection</h3>
-    <div class="reflect-item"><label>😊 I felt confident about…</label><textarea class="q-input" id="t1-r1" oninput="updateProgress()" style="min-height:60px;"></textarea></div>
-    <div class="reflect-item"><label>🤔 I found it tricky when…</label><textarea class="q-input" id="t1-r2" oninput="updateProgress()" style="min-height:60px;"></textarea></div>
-    <div class="reflect-item"><label>🎯 Next time I will…</label><textarea class="q-input" id="t1-r3" oninput="updateProgress()" style="min-height:60px;"></textarea></div>
-  </div>
-
-  <div class="sheet-footer">Lesson 7 · HTML Tags · <strong>Tier 1 — Support</strong><br/>Year 7 · Computer Science</div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     TIER 2 — CORE
-═══════════════════════════════════════════════ -->
-<div class="panel" id="panel-t2">
-
-  <div class="sheet-header">
-    <div class="sheet-meta">Year 7 · Computer Science · Lesson 7</div>
-    <div class="sheet-title"># HTML Tags Interactive Worksheet</div>
-    <div class="sheet-sub">
-      <span class="meta-pill pill-topic"><strong>Topic</strong> Structure &amp; Presentation in HTML</span>
-      <span class="meta-pill pill-t2"><strong>Tier</strong> 2 — Core</span>
-      <span class="meta-pill pill-topic"><strong>Total Marks</strong> 20</span>
-    </div>
-    <div class="student-fields">
-      <div><label>Student Name<input class="q-input" id="t2-name" placeholder="Your name" oninput="updateProgress()"/></label></div>
-      <div><label>Class<input class="q-input" id="t2-class" placeholder="e.g. 9A" oninput="updateProgress()"/></label></div>
-      <div><label>Date<input class="q-input" id="t2-date" placeholder="DD/MM/YYYY" oninput="updateProgress()"/></label></div>
-    </div>
-  </div>
-
-  <div class="li-box">
-    <h3>🎯 Learning Intention</h3>
-    <p style="font-size:13px;color:var(--gray-600);margin-bottom:8px;">Students will be able to identify and use common HTML tags to structure and format a web page.</p>
-    <div class="li-item"><span class="li-num">1</span> I can recognise what HTML tags are and why we use them.</div>
-    <div class="li-item"><span class="li-num">2</span> I can distinguish between structural and presentational tags.</div>
-    <div class="li-item"><span class="li-num">3</span> I can apply HTML tags in code and explain my reasoning.</div>
-  </div>
-
-  <div class="tier-banner t2">
-    <div class="tier-icon">🟡</div>
-    <h2>Tier 2 — Core Activity</h2>
-    <p>Independent work with some scaffolding · Grades M–B</p>
-    <div class="instructions">📌 <strong>Instructions:</strong> Answer all questions independently. Justify your decisions in full sentences where asked.</div>
-  </div>
-
-  <!-- Q1 -->
-  <div class="q-card">
-    <div class="q-header"><div class="q-num">1</div><span style="font-size:13px;font-weight:600;">Define and explain.</span><span class="q-marks">2 marks</span></div>
-    <div class="q-body">
-      <p class="q-text">In your own words, define what an HTML tag is and explain why tags are important for creating web pages.</p>
-      <textarea class="q-input" id="t2q1" oninput="updateProgress()" placeholder="Write your answer here..." style="min-height:90px;"></textarea>
-    </div>
-  </div>
-
-  <!-- Q2 -->
-  <div class="q-card">
-    <div class="q-header"><div class="q-num">2</div><span style="font-size:13px;font-weight:600;">Classify each tag and give a reason.</span><span class="q-marks">6 marks</span></div>
-    <div class="q-body">
-      <table class="sort-table">
-        <thead><tr><th>HTML Tag</th><th>Structural?</th><th>Your Reason</th></tr></thead>
-        <tbody id="t2q2-table">
-          <tr><td><code>&lt;nav&gt;</code></td><td><button class="sort-btn" onclick="sortPick(this,'yes','t2q2r1')" id="t2q2r1-y">Yes</button><button class="sort-btn" onclick="sortPick(this,'no','t2q2r1')" id="t2q2r1-n">No</button></td><td><input class="q-input" id="t2q2r1-reason" oninput="updateProgress()" placeholder="Because..." style="width:100%;"/></td></tr>
-          <tr><td><code>&lt;strong&gt;</code></td><td><button class="sort-btn" onclick="sortPick(this,'yes','t2q2r2')" id="t2q2r2-y">Yes</button><button class="sort-btn" onclick="sortPick(this,'no','t2q2r2')" id="t2q2r2-n">No</button></td><td><input class="q-input" id="t2q2r2-reason" oninput="updateProgress()" placeholder="Because..." style="width:100%;"/></td></tr>
-          <tr><td><code>&lt;article&gt;</code></td><td><button class="sort-btn" onclick="sortPick(this,'yes','t2q2r3')" id="t2q2r3-y">Yes</button><button class="sort-btn" onclick="sortPick(this,'no','t2q2r3')" id="t2q2r3-n">No</button></td><td><input class="q-input" id="t2q2r3-reason" oninput="updateProgress()" placeholder="Because..." style="width:100%;"/></td></tr>
-          <tr><td><code>&lt;em&gt;</code></td><td><button class="sort-btn" onclick="sortPick(this,'yes','t2q2r4')" id="t2q2r4-y">Yes</button><button class="sort-btn" onclick="sortPick(this,'no','t2q2r4')" id="t2q2r4-n">No</button></td><td><input class="q-input" id="t2q2r4-reason" oninput="updateProgress()" placeholder="Because..." style="width:100%;"/></td></tr>
-          <tr><td><code>&lt;footer&gt;</code></td><td><button class="sort-btn" onclick="sortPick(this,'yes','t2q2r5')" id="t2q2r5-y">Yes</button><button class="sort-btn" onclick="sortPick(this,'no','t2q2r5')" id="t2q2r5-n">No</button></td><td><input class="q-input" id="t2q2r5-reason" oninput="updateProgress()" placeholder="Because..." style="width:100%;"/></td></tr>
-          <tr><td><code>&lt;span&gt;</code></td><td><button class="sort-btn" onclick="sortPick(this,'yes','t2q2r6')" id="t2q2r6-y">Yes</button><button class="sort-btn" onclick="sortPick(this,'no','t2q2r6')" id="t2q2r6-n">No</button></td><td><input class="q-input" id="t2q2r6-reason" oninput="updateProgress()" placeholder="Because..." style="width:100%;"/></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- Q3 -->
-  <div class="q-card">
-    <div class="q-header"><div class="q-num">3</div><span style="font-size:13px;font-weight:600;">Write HTML for a personal profile page.</span><span class="q-marks">4 marks</span></div>
-    <div class="q-body">
-      <p class="q-text">Write HTML code for a simple personal profile page. It must include: a main heading, a subheading, a paragraph about yourself, and a list of your hobbies.</p>
-      <textarea class="code-textarea" id="t2q3" oninput="updateProgress()" placeholder="Write your HTML here..."></textarea>
-    </div>
-  </div>
-
-  <!-- Q4 -->
-  <div class="q-card">
-    <div class="q-header"><div class="q-num">4</div><span style="font-size:13px;font-weight:600;">Create a navigation menu in HTML.</span><span class="q-marks">4 marks</span></div>
-    <div class="q-body">
-      <p class="q-text">Write HTML code for a website navigation menu with links to: Home, About, and Contact. Use the correct semantic tags.</p>
-      <textarea class="code-textarea" id="t2q4" oninput="updateProgress()" placeholder="Write your HTML here..."></textarea>
-    </div>
-  </div>
-
-  <!-- Q5 -->
-  <div class="q-card">
-    <div class="q-header"><div class="q-num">5</div><span style="font-size:13px;font-weight:600;">Evaluate and respond.</span><span class="q-marks">4 marks</span></div>
-    <div class="q-body">
-      <p class="q-text">A classmate says: <em>"I can just use &lt;b&gt; and &lt;i&gt; tags for everything — they make text bold and italic, so they're all I need."</em> Do you agree or disagree? Explain using what you know about semantic HTML.</p>
-      <textarea class="q-input" id="t2q5" oninput="updateProgress()" placeholder="Write your answer here..." style="min-height:100px;"></textarea>
-      <div class="score-box">
-        <label>My Score:</label>
-        <input type="number" class="score-input" id="t2-score" min="0" max="20" placeholder="0"/>
-        <span class="score-denom">/ 20</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="reflection">
-    <h3>🪞 Self-Reflection</h3>
-    <div class="reflect-item"><label>✅ I met the success criteria…</label><textarea class="q-input" id="t2-r1" oninput="updateProgress()" style="min-height:60px;"></textarea></div>
-    <div class="reflect-item"><label>🔍 I still want to understand…</label><textarea class="q-input" id="t2-r2" oninput="updateProgress()" style="min-height:60px;"></textarea></div>
-    <div class="reflect-item"><label>⭐ My strongest answer was…</label><textarea class="q-input" id="t2-r3" oninput="updateProgress()" style="min-height:60px;"></textarea></div>
-  </div>
-
-  <div class="sheet-footer">Lesson 7 · HTML Tags · <strong>Tier 2 — Core</strong><br/>Year 7 · Computer Science</div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     TIER 3 — EXTENSION
-═══════════════════════════════════════════════ -->
-<div class="panel" id="panel-t3">
-
-  <div class="sheet-header">
-    <div class="sheet-meta">Year 7 · Computer Science · Lesson 7</div>
-    <div class="sheet-title"># HTML Tags Interactive Worksheet</div>
-    <div class="sheet-sub">
-      <span class="meta-pill pill-topic"><strong>Topic</strong> Structure &amp; Presentation in HTML</span>
-      <span class="meta-pill pill-t3"><strong>Tier</strong> 3 — Extension</span>
-      <span class="meta-pill pill-topic"><strong>Total Marks</strong> 20</span>
-    </div>
-    <div class="student-fields">
-      <div><label>Student Name<input class="q-input" id="t3-name" placeholder="Your name" oninput="updateProgress()"/></label></div>
-      <div><label>Class<input class="q-input" id="t3-class" placeholder="e.g. 9A" oninput="updateProgress()"/></label></div>
-      <div><label>Date<input class="q-input" id="t3-date" placeholder="DD/MM/YYYY" oninput="updateProgress()"/></label></div>
-    </div>
-  </div>
-
-  <div class="li-box">
-    <h3>🎯 Learning Intention</h3>
-    <p style="font-size:13px;color:var(--gray-600);margin-bottom:8px;">Students will be able to identify and use common HTML tags to structure and format a web page.</p>
-    <div class="li-item"><span class="li-num">1</span> I can design the full semantic structure of a multi-section web page.</div>
-    <div class="li-item"><span class="li-num">2</span> I can apply accessibility best practices using HTML attributes.</div>
-    <div class="li-item"><span class="li-num">3</span> I can evaluate and debug HTML code critically.</div>
-  </div>
-
-  <div class="tier-banner t3">
-    <div class="tier-icon">🔴</div>
-    <h2>Tier 3 — Extension Challenge</h2>
-    <p>Higher-order thinking · Applied HTML · Grades B–Outstanding</p>
-    <div class="instructions">📌 <strong>Instructions:</strong> All questions require detailed answers. Write clear, well-structured HTML and full-sentence explanations. Think critically!</div>
-  </div>
-
-  <!-- Q1 -->
-  <div class="q-card">
-    <div class="q-header"><div class="q-num">1</div><span style="font-size:13px;font-weight:600;">Explain semantic vs presentational HTML using a real-world analogy.</span><span class="q-marks">2 marks</span></div>
-    <div class="q-body">
-      <p class="q-text">Explain the difference between semantic HTML tags (e.g. <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code>) and presentational tags (e.g. <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code>), using a real-world analogy from outside the classroom.</p>
-      <textarea class="q-input" id="t3q1" oninput="updateProgress()" style="min-height:100px;"></textarea>
-    </div>
-  </div>
-
-  <!-- Q2 -->
-  <div class="q-card">
-    <div class="q-header"><div class="q-num">2</div><span style="font-size:13px;font-weight:600;">Design Challenge — Full page structure.</span><span class="q-marks">4 marks</span></div>
-    <div class="q-body">
-      <p class="q-text">A charity wants a website with a header, navigation, a main article section, a sidebar, and a footer. Write the complete HTML skeleton using correct semantic tags. Include placeholder content in each section.</p>
-      <textarea class="code-textarea" id="t3q2" oninput="updateProgress()" style="min-height:200px;" placeholder="&lt;!DOCTYPE html&gt;&#10;&lt;html&gt;&#10;..."></textarea>
-      <p style="font-size:12px;font-weight:600;color:var(--gray-400);margin:10px 0 4px;">Explain your structural decisions:</p>
-      <textarea class="q-input" id="t3q2b" oninput="updateProgress()" placeholder="I used &lt;nav&gt; because..." style="min-height:80px;"></textarea>
-    </div>
-  </div>
-
-  <!-- Q3 -->
-  <div class="q-card">
-    <div class="q-header"><div class="q-num">3</div><span style="font-size:13px;font-weight:600;">Accessibility extension.</span><span class="q-marks">4 marks</span></div>
-    <div class="q-body">
-      <p class="q-text">Extend your page from Q2 to include accessibility best practices: add <code>alt</code> attributes to images, use <code>aria-label</code> on the nav, and ensure headings follow a logical order (h1 → h2 → h3). Paste your updated code and explain how each change improves accessibility.</p>
-      <textarea class="code-textarea" id="t3q3" oninput="updateProgress()" style="min-height:180px;"></textarea>
-      <p style="font-size:12px;font-weight:600;color:var(--gray-400);margin:10px 0 4px;">How does each change improve accessibility?</p>
-      <textarea class="q-input" id="t3q3b" oninput="updateProgress()" style="min-height:80px;"></textarea>
-    </div>
-  </div>
-
-  <!-- Q4 -->
-  <div class="q-card">
-    <div class="q-header"><div class="q-num">4</div><span style="font-size:13px;font-weight:600;">Critical Thinking — Debug and Evaluate.</span><span class="q-marks">6 marks</span></div>
-    <div class="q-body">
-      <p class="q-text">A student wrote this HTML. Find ALL the problems and rewrite it correctly.</p>
-      <div class="code-block">
-        <span class="code-label">HTML — BUGGY CODE</span>
-        <span class="cm">&lt;!-- Student's attempt --&gt;</span><br/>
-        <span class="tg">&lt;HTML&gt;</span><br/>
-        <span class="tg">&lt;head&gt;</span><br/>
-        &nbsp;&nbsp;<span class="tg">&lt;title</span><span class="tg">&gt;</span>My Page<span class="tg">&lt;title&gt;</span><br/>
-        <span class="tg">&lt;/head&gt;</span><br/>
-        <span class="tg">&lt;body&gt;</span><br/>
-        &nbsp;&nbsp;<span class="tg">&lt;H1&gt;</span>Welcome<span class="tg">&lt;/h1&gt;</span><br/>
-        &nbsp;&nbsp;<span class="tg">&lt;p&gt;</span>This is my site.<span class="tg">&lt;P&gt;</span><br/>
-        &nbsp;&nbsp;<span class="tg">&lt;ul&gt;</span><br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tg">&lt;li&gt;</span>Item one<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tg">&lt;li&gt;</span>Item two<br/>
-        &nbsp;&nbsp;<span class="tg">&lt;/ul&gt;</span><br/>
-        <span class="tg">&lt;/body&gt;</span>
-      </div>
-      <p style="font-size:12px;font-weight:600;color:var(--gray-400);margin:10px 0 4px;">Problems I found:</p>
-      <textarea class="q-input" id="t3q4a" oninput="updateProgress()" placeholder="1. ..." style="min-height:100px;"></textarea>
-      <p style="font-size:12px;font-weight:600;color:var(--gray-400);margin:10px 0 4px;">My corrected code:</p>
-      <textarea class="code-textarea" id="t3q4b" oninput="updateProgress()" style="min-height:160px;"></textarea>
-    </div>
-  </div>
-
-  <!-- Q5 -->
-  <div class="q-card">
-    <div class="q-header"><div class="q-num">5</div><span style="font-size:13px;font-weight:600;">Real-World Application.</span><span class="q-marks">4 marks</span></div>
-    <div class="q-body">
-      <p class="q-text">Describe TWO real-world websites (e.g. a news site, a school website). For each, identify which semantic HTML tags they likely use and explain why good HTML structure matters beyond just "making it look right".</p>
-      <p style="font-size:12px;font-weight:600;color:var(--gray-400);margin-bottom:4px;">Website 1:</p>
-      <textarea class="q-input" id="t3q5a" oninput="updateProgress()" style="min-height:80px;"></textarea>
-      <p style="font-size:12px;font-weight:600;color:var(--gray-400);margin:8px 0 4px;">Website 2:</p>
-      <textarea class="q-input" id="t3q5b" oninput="updateProgress()" style="min-height:80px;"></textarea>
-      <div class="score-box">
-        <label>My Score:</label>
-        <input type="number" class="score-input" id="t3-score" min="0" max="20" placeholder="0"/>
-        <span class="score-denom">/ 20</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="reflection">
-    <h3>🪞 Peer Review</h3>
-    <p style="font-size:12px;color:var(--gray-400);margin-bottom:12px;">Swap your worksheet with a classmate. Give them written feedback below, then discuss together.</p>
-    <div class="reflect-item"><label>⭐ Two Stars (Strengths)</label><textarea class="q-input" id="t3-r1" oninput="updateProgress()" style="min-height:70px;"></textarea></div>
-    <div class="reflect-item"><label>🌱 One Wish (Improvement)</label><textarea class="q-input" id="t3-r2" oninput="updateProgress()" style="min-height:60px;"></textarea></div>
-    <div class="reflect-item"><label>💬 Reviewer Name &amp; Date</label><input class="q-input" id="t3-r3" oninput="updateProgress()" style="width:100%;"/></div>
-  </div>
-
-  <div class="sheet-footer">Lesson 7 · HTML Tags · <strong>Tier 3 — Extension</strong><br/>Year 7 · Computer Science</div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
-     RUBRIC — TEACHER
-═══════════════════════════════════════════════ -->
-<div class="panel" id="panel-progress">
-</div>
-
-<div class="panel" id="panel-rubric">
-  <div class="teacher-note">🔒 <strong>Teacher Reference</strong> · Year 7 · Lesson 7 · HTML Tags · All Tiers — 20 Marks Each</div>
-
-  <div class="sheet-header" style="margin-bottom:1.25rem;">
-    <div class="sheet-meta">Teacher Reference · Year 7 · Lesson 7</div>
-    <div class="sheet-title"># Marking Rubric &amp; Assessment Guide</div>
-    <div class="sheet-sub">
-      <span class="meta-pill pill-topic"><strong>Lesson</strong> HTML Tags</span>
-      <span class="meta-pill pill-topic"><strong>All Tiers</strong> 20 Marks Each</span>
-    </div>
-  </div>
-
-  <!-- TIER 1 RUBRIC -->
-  <div class="rubric-section t1">
-    <h2>🟢 Tier 1 — Support Marking Guide</h2>
-    <table class="rubric-table">
-      <thead><tr><th>Q</th><th>Criteria</th><th>Marks</th><th>Model Answer / Key Points</th></tr></thead>
+  <!-- Grade boundaries reference -->
+  <div class="section-title">Grade Boundaries — All Worksheets</div>
+  <div style="background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:24px">
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead>
+        <tr style="background:var(--purple-dark);color:white">
+          <th style="padding:10px 14px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em">Grade</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em">Mark Range</th>
+          <th style="padding:10px 14px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em">Descriptor</th>
+        </tr>
+      </thead>
       <tbody>
-        <tr><td><strong>1</strong></td><td>Completes the sentence correctly</td><td><span class="marks-badge">2</span></td><td>"angle brackets / &lt; &gt;" (1) and "display / structure" (1)</td></tr>
-        <tr><td><strong>2</strong></td><td>Correctly sorts 4 tags</td><td><span class="marks-badge">4</span></td><td>Structural: &lt;h1&gt; ✓, &lt;p&gt; ✓ | Presentational: &lt;b&gt; ✓, &lt;i&gt; ✓ — 1 mark each</td></tr>
-        <tr><td><strong>3</strong></td><td>Correct tag names in all blanks</td><td><span class="marks-badge">4</span></td><td>h1 (opening &amp; closing), p (opening &amp; closing), li (opening &amp; closing) — 0.5 each pair; deduct 0.5 for each wrong/missing</td></tr>
-        <tr><td><strong>4</strong></td><td>Valid HTML snippet with heading, paragraph, and list</td><td><span class="marks-badge">4</span></td><td>Correct heading tag (1), paragraph with content (1), ul with at least 2 li items (1), closing tags used (1)</td></tr>
-        <tr><td><strong>5</strong></td><td>Explanation + example + consequence of missing closing tag</td><td><span class="marks-badge">6</span></td><td>Valid tag pair shown (2), reason tags come in pairs (2), consequence of missing closing tag (2)</td></tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:10px 14px"><strong style="color:var(--green)">Outstanding / E</strong></td>
+          <td style="padding:10px 14px;font-family:monospace">18 – 20</td>
+          <td style="padding:10px 14px;color:var(--soft)">All concepts correctly applied; thorough explanations showing deep understanding.</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);background:#fafafa">
+          <td style="padding:10px 14px"><strong style="color:var(--amber)">Exceeds / M+</strong></td>
+          <td style="padding:10px 14px;font-family:monospace">15 – 17</td>
+          <td style="padding:10px 14px;color:var(--soft)">Most concepts correct; minor errors; clear understanding of key distinctions.</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:10px 14px"><strong style="color:#c7922a">Meets / M</strong></td>
+          <td style="padding:10px 14px;font-family:monospace">11 – 14</td>
+          <td style="padding:10px 14px;color:var(--soft)">Core concepts understood; some errors; generally on track with some support.</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 14px"><strong style="color:var(--red)">Below / B</strong></td>
+          <td style="padding:10px 14px;font-family:monospace">0 – 10</td>
+          <td style="padding:10px 14px;color:var(--soft)">Partial understanding; significant errors; needs further support.</td>
+        </tr>
       </tbody>
     </table>
   </div>
 
-  <hr class="divider"/>
-
-  <!-- TIER 2 RUBRIC -->
-  <div class="rubric-section t2">
-    <h2>🟡 Tier 2 — Core Marking Guide</h2>
-    <table class="rubric-table">
-      <thead><tr><th>Q</th><th>Criteria</th><th>Marks</th><th>Model Answer / Key Points</th></tr></thead>
-      <tbody>
-        <tr><td><strong>1</strong></td><td>Own-words definition + importance</td><td><span class="marks-badge">2</span></td><td>Definition (1): keywords in &lt;&gt; that structure content. Importance (1): tells browser how to render; enables accessibility / SEO</td></tr>
-        <tr><td><strong>2</strong></td><td>6 correct Y/N + justified reasoning</td><td><span class="marks-badge">6</span></td><td>Structural: &lt;nav&gt; ✓, &lt;article&gt; ✓, &lt;footer&gt; ✓. Presentational: &lt;strong&gt; ✓, &lt;em&gt; ✓, &lt;span&gt; ✓ — 0.5 choice + 0.5 reason each</td></tr>
-        <tr><td><strong>3</strong></td><td>Profile page with 4 required elements</td><td><span class="marks-badge">4</span></td><td>h1 heading (1), h2 subheading (1), paragraph (1), list with ≥2 items (1)</td></tr>
-        <tr><td><strong>4</strong></td><td>Nav menu with correct semantic structure and links</td><td><span class="marks-badge">4</span></td><td>&lt;nav&gt; wrapper (1), &lt;ul&gt;/&lt;li&gt; structure (1), &lt;a href="#"&gt; for each link (1), all 3 pages linked (1)</td></tr>
-        <tr><td><strong>5</strong></td><td>Critical disagreement with semantic explanation</td><td><span class="marks-badge">4</span></td><td>Must disagree (1), reference semantic meaning of &lt;strong&gt;/&lt;em&gt; vs &lt;b&gt;/&lt;i&gt; (1), mention accessibility/screen readers (1), clear example (1)</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <hr class="divider"/>
-
-  <!-- TIER 3 RUBRIC -->
-  <div class="rubric-section t3">
-    <h2>🔴 Tier 3 — Extension Marking Guide</h2>
-    <table class="rubric-table">
-      <thead><tr><th>Q</th><th>Criteria</th><th>Marks</th><th>Model Answer / Key Points</th></tr></thead>
-      <tbody>
-        <tr><td><strong>1</strong></td><td>Analogy clearly distinguishing semantic from presentational</td><td><span class="marks-badge">2</span></td><td>Analogy is apt (1); clearly shows semantic = meaning/purpose, presentational = appearance only (1)</td></tr>
-        <tr><td><strong>2</strong></td><td>Complete HTML skeleton with 5 semantic sections + explanation</td><td><span class="marks-badge">4</span></td><td>&lt;header&gt;, &lt;nav&gt;, &lt;main&gt;/&lt;article&gt;, &lt;aside&gt;, &lt;footer&gt; all present (1 each); explanation of decisions (1) — deduct if divs used instead of semantic tags</td></tr>
-        <tr><td><strong>3</strong></td><td>Accessibility attributes added + impact explained</td><td><span class="marks-badge">4</span></td><td>alt on image (1), aria-label on nav (1), logical heading order h1→h2→h3 (1), explanation of why each improves screen reader/accessibility (1)</td></tr>
-        <tr><td><strong>4</strong></td><td>All bugs identified + corrected code</td><td><span class="marks-badge">6</span></td><td>HTML in capitals (1), wrong &lt;title&gt; closing tag (1), mixed case &lt;H1&gt; (1), wrong &lt;P&gt; closing tag (1), unclosed &lt;li&gt; tags ×2 (1), corrected full page (1)</td></tr>
-        <tr><td><strong>5</strong></td><td>2 real-world sites with semantic tags + broader importance</td><td><span class="marks-badge">4</span></td><td>Site 1 with specific tags + purpose (2); Site 2 with specific tags + purpose (2) — must mention SEO / accessibility / maintainability beyond appearance</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <hr class="divider"/>
-
-  <!-- GRADE BOUNDARIES -->
-  <div class="rubric-section" style="border:1px solid var(--gray-200);">
-    <h2 style="color:var(--gray-800);">📊 Grade Boundaries (All Tiers / 20 marks)</h2>
-    <table class="grade-table">
-      <thead><tr><th>Grade</th><th>Mark Range</th><th>Descriptor</th></tr></thead>
-      <tbody>
-        <tr><td><span class="grade-badge g-out">Outstanding / E</span></td><td>18 – 20</td><td>All HTML tag concepts correctly applied; code syntactically correct and uses semantic tags throughout; thorough explanations demonstrating deep understanding of structure vs presentation.</td></tr>
-        <tr><td><span class="grade-badge g-exc">Exceeds / M+</span></td><td>15 – 17</td><td>Most concepts correctly applied; minor errors in code or explanation; clear understanding of semantic vs presentational HTML with mostly accurate reasoning.</td></tr>
-        <tr><td><span class="grade-badge g-meets">Meets / M</span></td><td>11 – 14</td><td>Core concepts understood; some errors in tag usage or classification; generally distinguishes structural from presentational tags with some support needed.</td></tr>
-        <tr><td><span class="grade-badge g-below">Below / B</span></td><td>0 – 10</td><td>Partial understanding; significant errors in code or tag identification; needs further support with HTML tag fundamentals and semantic markup.</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="sheet-footer">Lesson 7 · HTML Tags · <strong>Teacher Marking Guide</strong><br/>Year 7 · Computer Science · 🔒 Teacher Copy</div>
 </div>
 
-<script>
-// ── TAB SWITCHING ──
-function switchTab(name){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelector('.tab.'+name)?.classList.add('active');
-  const el=document.querySelector('.tab[onclick*="'+name+'"]');
-  if(el)el.classList.add('active');
-  document.getElementById('panel-'+name).classList.add('active');
-  document.querySelectorAll('.tab').forEach(t=>{if(t.getAttribute('onclick').includes("'"+name+"'"))t.classList.add('active');});
-  updateProgress();
-}
+<div class="site-footer">
+  <strong>Computer Science Worksheets</strong> · Mrs Ejaz · Year 7 &amp; Year 9 · 2025–2026
+</div>
 
-// Fix tab active state
-document.querySelectorAll('.tab').forEach(btn=>{
-  btn.addEventListener('click',function(){
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    this.classList.add('active');
-  });
-});
-
-// ── SORT BUTTONS ──
-function sortPick(btn,val,group){
-  const yBtn=document.getElementById(group+'-y');
-  const nBtn=document.getElementById(group+'-n');
-  if(yBtn)yBtn.classList.remove('yes-sel','no-sel');
-  if(nBtn)nBtn.classList.remove('yes-sel','no-sel');
-  if(val==='yes')btn.classList.add('yes-sel');
-  else btn.classList.add('no-sel');
-  updateProgress();
-}
-
-// ── WORD BANK CHIPS ──
-function copyChip(chip,targetId){
-  const el=document.getElementById(targetId);
-  if(el){el.value=chip.textContent.trim();updateProgress();}
-}
-
-// ── PROGRESS ──
-function updateProgress(){
-  const allInputs=[...document.querySelectorAll('input.q-input, textarea.q-input, .blank, .code-textarea')];
-  const filled=allInputs.filter(el=>el.value&&el.value.trim()!=='').length;
-  const total=allInputs.length||1;
-  const sortPicked=document.querySelectorAll('.sort-btn.yes-sel,.sort-btn.no-sel').length;
-  const sortTotal=document.querySelectorAll('.sort-btn').length/2;
-  const pct=Math.round(((filled+sortPicked)/(total+sortTotal))*100);
-  document.getElementById('prog-fill').style.width=pct+'%';
-  document.getElementById('prog-pct').textContent=pct+'%';
-}
-
-// ── SAVE ──
-function saveAll(){
-  const data={};
-  document.querySelectorAll('[id]').forEach(el=>{
-    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){
-      data[el.id]=el.value;
-    }
-    if(el.classList.contains('sort-btn')){
-      if(el.classList.contains('yes-sel'))data[el.id]='yes';
-      else if(el.classList.contains('no-sel'))data[el.id]='no';
-    }
-  });
-  localStorage.setItem('html-worksheet-v1',JSON.stringify(data));
-  const toast=document.getElementById('toast');
-  toast.style.opacity='1';
-  setTimeout(()=>toast.style.opacity='0',2500);
-}
-
-// ── LOAD ──
-function loadSaved(){
-  try{
-    const raw=localStorage.getItem('html-worksheet-v1');
-    if(!raw)return;
-    const data=JSON.parse(raw);
-    Object.entries(data).forEach(([id,val])=>{
-      const el=document.getElementById(id);
-      if(!el)return;
-      if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){el.value=val;}
-      else if(el.classList.contains('sort-btn')){
-        if(val==='yes')el.classList.add('yes-sel');
-        else if(val==='no')el.classList.add('no-sel');
-      }
-    });
-    updateProgress();
-  }catch(e){}
-}
-
-// ── CLEAR ──
-function clearAll(){
-  if(!confirm('Clear all answers? This cannot be undone.'))return;
-  document.querySelectorAll('input.q-input,textarea.q-input,.blank,.code-textarea,.score-input').forEach(el=>el.value='');
-  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('yes-sel','no-sel'));
-  localStorage.removeItem('html-worksheet-v1');
-  updateProgress();
-}
-
-// ── AUTO-SAVE on change ──
-document.addEventListener('input',()=>saveAll());
-document.addEventListener('click',e=>{if(e.target.classList.contains('sort-btn'))setTimeout(saveAll,100);});
-
-// ── INIT ──
-loadSaved();
-updateProgress();
-</script>
-
-<style>
-/* ── PROGRESS TAB STYLES ── */
-#tab-progress.active{color:#6366f1;border-bottom-color:#6366f1}
-.prog-header{background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:10px;padding:20px 24px;color:white;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.prog-header h2{font-size:18px;font-weight:700;margin-bottom:3px}
-.prog-header p{font-size:12px;opacity:.8}
-.prog-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px}
-.prog-stat{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 16px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.prog-stat .val{font-size:26px;font-weight:700;line-height:1;margin-bottom:4px}
-.prog-stat .lbl{font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.05em}
-.prog-tier-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.prog-tier-hdr{padding:12px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #f0f0f0}
-.prog-tier-hdr .tier-icon{font-size:20px}
-.prog-tier-hdr .tier-name{font-size:14px;font-weight:700;flex:1}
-.prog-tier-hdr .tier-pct{font-size:13px;font-weight:600;color:#6366f1}
-.prog-bar-row{padding:8px 18px 14px;display:flex;align-items:center;gap:10px}
-.prog-bar-bg{flex:1;height:10px;background:#f3f4f6;border-radius:100px;overflow:hidden}
-.prog-bar-fill{height:100%;border-radius:100px;transition:width .8s cubic-bezier(.4,0,.2,1)}
-.prog-q-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;padding:0 18px 16px}
-.prog-q{background:#f9fafb;border:1px solid #e5e7eb;border-radius:6px;padding:8px 10px;font-size:12px}
-.prog-q-lbl{font-weight:600;color:#374151;margin-bottom:3px}
-.prog-q-bar{height:5px;border-radius:100px;background:#e5e7eb;overflow:hidden;margin-bottom:3px}
-.prog-q-fill{height:100%;border-radius:100px}
-.prog-q-val{font-size:11px;color:#6b7280}
-.prog-score-card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:18px 20px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.prog-score-card h3{font-size:13px;font-weight:700;color:#374151;margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em}
-.prog-submit-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:14px}
-.prog-submit-btn{background:#6366f1;color:white;border:none;border-radius:6px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
-.prog-submit-btn:hover{background:#4f46e5}
-.prog-grade-pill{display:inline-block;font-size:12px;font-weight:700;padding:3px 11px;border-radius:100px}
-.prog-empty{text-align:center;padding:40px 20px;color:#9ca3af;font-size:14px}
-.prog-tip{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 14px;font-size:12px;color:#1d4ed8;margin-bottom:16px}
-</style>
-
-<script>
-function renderProgress(){
-  const panel = document.getElementById('panel-progress');
-
-  // Count filled fields per tier
-  function tierProgress(prefix, qIds){
-    let filled=0, total=qIds.length;
-    qIds.forEach(id=>{
-      const el=document.getElementById(id);
-      if(el && el.value && el.value.trim().length>0) filled++;
-    });
-    return {filled, total, pct: total ? Math.round(filled/total*100) : 0};
-  }
-
-  // ── Real field IDs from the worksheet ──
-  const t1Qs = [
-    {label:'Q1 – Complete sentence', ids:['t1q1a','t1q1b']},
-    {label:'Q2 – Sort tags', ids:['t1q2r1-y','t1q2r2-n','t1q2r3-y','t1q2r4-n'], sortCheck:true},
-    {label:'Q3 – Fill HTML tags', ids:['t1q3a','t1q3a2','t1q3b','t1q3b2','t1q3c','t1q3c2']},
-    {label:'Q4 – Write own HTML', ids:['t1q4']},
-    {label:'Q5 – Explain', ids:['t1q5a','t1q5b']},
-  ];
-  const t2Qs = [
-    {label:'Q1 – Define & explain', ids:['t2q1']},
-    {label:'Q2 – Classify tags', ids:['t2q2r1-reason','t2q2r2-reason','t2q2r3-reason','t2q2r4-reason','t2q2r5-reason','t2q2r6-reason']},
-    {label:'Q3 – Profile page HTML', ids:['t2q3']},
-    {label:'Q4 – Nav menu HTML', ids:['t2q4']},
-    {label:'Q5 – Evaluate & respond', ids:['t2q5']},
-  ];
-  const t3Qs = [
-    {label:'Q1 – Analogy', ids:['t3q1']},
-    {label:'Q2 – Design challenge', ids:['t3q2','t3q2b']},
-    {label:'Q3 – Accessibility', ids:['t3q3','t3q3b']},
-    {label:'Q4 – Debug & evaluate', ids:['t3q4a','t3q4b']},
-    {label:'Q5 – Real-world app', ids:['t3q5a','t3q5b']},
-  ];
-
-  function countFilled(qList){
-    let filled=0, total=0;
-    qList.forEach(q=>{
-      if(q.sortCheck){
-        // count each sort-btn pair as one question field
-        const pairs = ['t1q2r1','t1q2r2','t1q2r3','t1q2r4'];
-        pairs.forEach(p=>{
-          total++;
-          const yBtn=document.getElementById(p+'-y');
-          const nBtn=document.getElementById(p+'-n');
-          if((yBtn&&yBtn.classList.contains('yes-sel'))||(nBtn&&nBtn.classList.contains('no-sel'))) filled++;
-        });
-      } else {
-        q.ids.forEach(id=>{
-          total++;
-          const el=document.getElementById(id);
-          if(el && (el.value||'').trim().length>0) filled++;
-        });
-      }
-    });
-    return {filled, total, pct: total ? Math.round(filled/total*100) : 0};
-  }
-
-  const p1=countFilled(t1Qs), p2=countFilled(t2Qs), p3=countFilled(t3Qs);
-  const totalFilled=p1.filled+p2.filled+p3.filled;
-  const totalFields=p1.total+p2.total+p3.total;
-  const overallPct=totalFields?Math.round(totalFilled/totalFields*100):0;
-
-  const tierData=[
-    {name:'Tier 1 — Support',icon:'🟢',color:'#16a34a',bg:'#dcfce7',qs:t1Qs,p:p1},
-    {name:'Tier 2 — Core',icon:'🟡',color:'#d97706',bg:'#fef9c3',qs:t2Qs,p:p2},
-    {name:'Tier 3 — Extension',icon:'🔴',color:'#dc2626',bg:'#fee2e2',qs:t3Qs,p:p3},
-  ];
-
-  // Get saved scores
-  function getScore(tier){
-    try{return JSON.parse(localStorage.getItem('html-scores-'+tier)||'null');}catch(e){return null;}
-  }
-
-  let tiersHtml = tierData.map(t=>{
-    const qBars = t.qs.map(q=>{
-      let qFilled=0, qTotal=0;
-      if(q.sortCheck){
-        ['t1q2r1','t1q2r2','t1q2r3','t1q2r4'].forEach(p=>{
-          qTotal++;
-          const yBtn=document.getElementById(p+'-y');
-          const nBtn=document.getElementById(p+'-n');
-          if((yBtn&&yBtn.classList.contains('yes-sel'))||(nBtn&&nBtn.classList.contains('no-sel')))qFilled++;
-        });
-      } else {
-        q.ids.forEach(id=>{qTotal++;const el=document.getElementById(id);if(el&&(el.value||'').trim().length>0)qFilled++;});
-      }
-      const qPct=qTotal?Math.round(qFilled/qTotal*100):0;
-      const c=qPct===100?t.color:qPct>0?'#f59e0b':'#e5e7eb';
-      const status=qPct===100?'✅':qPct>0?'✏️':'○';
-      return `<div class="prog-q">
-        <div class="prog-q-lbl">${status} ${q.label}</div>
-        <div class="prog-q-bar"><div class="prog-q-fill" style="width:${qPct}%;background:${c}"></div></div>
-        <div class="prog-q-val">${qFilled}/${qTotal} fields</div>
-      </div>`;
-    }).join('');
-    return `<div class="prog-tier-card">
-      <div class="prog-tier-hdr">
-        <span class="tier-icon">${t.icon}</span>
-        <span class="tier-name">${t.name}</span>
-        <span class="tier-pct">${t.p.pct}% complete</span>
-      </div>
-      <div class="prog-bar-row">
-        <div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${t.p.pct}%;background:${t.color}"></div></div>
-        <span style="font-size:12px;color:#6b7280;white-space:nowrap">${t.p.filled}/${t.p.total} fields</span>
-      </div>
-      <div class="prog-q-grid">${qBars}</div>
-    </div>`;
-  }).join('');
-
-  // Score summary
-  const scores=[1,2,3].map(n=>{
-    const s=getScore(n);
-    if(!s) return `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:13px"><span>Tier ${n}</span><span style="color:#9ca3af;font-size:12px">Not yet submitted</span></div>`;
-    const g=s>=18?{l:'Outstanding / E',c:'#16a34a',bg:'#dcfce7'}:s>=15?{l:'Exceeds / M+',c:'#d97706',bg:'#fef9c3'}:s>=11?{l:'Meets / M',c:'#7c6800',bg:'#fefce8'}:{l:'Below / B',c:'#dc2626',bg:'#fee2e2'};
-    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f0f0f0">
-      <span style="font-size:13px;font-weight:500">Tier ${n}</span>
-      <div style="display:flex;align-items:center;gap:8px">
-        <span style="font-size:15px;font-weight:700;color:${g.c}">${s}/20</span>
-        <span class="prog-grade-pill" style="background:${g.bg};color:${g.c}">${g.l}</span>
-      </div>
-    </div>`;
-  }).join('');
-
-  panel.innerHTML = `
-  <div style="max-width:760px;margin:0 auto">
-    <div class="prog-header">
-      <div>
-        <h2>📈 My Progress</h2>
-        <p>HTML Tags · Year 7 · Computer Science · Lesson 7</p>
-      </div>
-      <div style="text-align:right">
-        <div style="font-size:32px;font-weight:700;line-height:1">${overallPct}%</div>
-        <div style="font-size:12px;opacity:.8">overall completion</div>
-      </div>
-    </div>
-
-    <div class="prog-stats">
-      <div class="prog-stat"><div class="val" style="color:#6366f1">${totalFilled}</div><div class="lbl">Fields filled</div></div>
-      <div class="prog-stat"><div class="val" style="color:#16a34a">${p1.pct}%</div><div class="lbl">Tier 1</div></div>
-      <div class="prog-stat"><div class="val" style="color:#d97706">${p2.pct}%</div><div class="lbl">Tier 2</div></div>
-      <div class="prog-stat"><div class="val" style="color:#dc2626">${p3.pct}%</div><div class="lbl">Tier 3</div></div>
-    </div>
-
-    <div class="prog-tip">💡 <strong>Tip:</strong> Questions marked ✅ are fully complete · ✏️ partially answered · ○ not yet started. Go back to any tier to complete them!</div>
-
-    ${tiersHtml}
-
-    <div class="prog-score-card">
-      <h3>Submitted Scores</h3>
-      ${scores}
-      <div style="margin-top:8px;font-size:11px;color:#9ca3af">Scores appear here after you click "Submit & See My Score" on each tier.</div>
-    </div>
-  </div>`;
-}
-
-// Patch submit to save scores for progress tab
-const _origSubmit = window.submitTier || null;
-function saveScore(tier, score){
-  try{ localStorage.setItem('html-scores-'+tier, JSON.stringify(score)); }catch(e){}
-}
-</script>
 </body>
 </html>

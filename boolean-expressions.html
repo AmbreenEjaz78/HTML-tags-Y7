@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boolean Expressions — Interactive Worksheet · Year 9</title>
+<style>
+:root {
+  --ms-purple: #6264a7;
+  --ms-purple-dark: #464775;
+  --ms-purple-light: #e8e8f4;
+  --ms-purple-xlight: #f5f5fb;
+  --ms-red: #c50f1f;
+  --ms-green: #107c10;
+  --ms-orange: #8a4000;
+  --ms-blue: #0078d4;
+  --ms-bg: #f5f5f5;
+  --ms-card: #ffffff;
+  --ms-border: #d1d1d1;
+  --ms-text: #242424;
+  --ms-text-soft: #616161;
+  --ms-text-lighter: #8a8a8a;
+  --ms-shadow: 0 1.6px 3.6px rgba(0,0,0,.132), 0 .3px .9px rgba(0,0,0,.108);
+  --ms-shadow-card: 0 2px 6px rgba(0,0,0,.1);
+  --tier1: #107c10; --tier1-light: #dff6dd;
+  --tier2: #8a4000; --tier2-light: #fff4ce;
+  --tier3: #c50f1f; --tier3-light: #fde7e9;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--ms-bg);color:var(--ms-text);min-height:100vh;font-size:14px;line-height:1.5}
+
+/* TOP BAR */
+.ms-topbar{background:var(--ms-purple-dark);height:48px;display:flex;align-items:center;padding:0 24px;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.ms-topbar-logo{display:flex;align-items:center;gap:8px;color:white;font-size:15px;font-weight:600}
+.ms-topbar-divider{width:1px;height:20px;background:rgba(255,255,255,.25)}
+.ms-topbar-title{color:rgba(255,255,255,.85);font-size:13px}
+.ms-topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.ms-topbar-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:white;border-radius:2px;padding:4px 12px;font-size:13px;cursor:pointer;transition:background .15s;font-family:inherit}
+.ms-topbar-btn:hover{background:rgba(255,255,255,.22)}
+.ms-topbar-btn.primary{background:rgba(255,255,255,.9);color:#464775;font-weight:600}
+
+/* TABS */
+.ms-tabs{background:white;border-bottom:1px solid var(--ms-border);display:flex;padding:0 24px;overflow-x:auto}
+.ms-tab{padding:12px 18px 10px;font-size:13px;color:var(--ms-text-soft);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all .15s;font-weight:400;white-space:nowrap;position:relative;bottom:-1px;font-family:inherit}
+.ms-tab:hover{color:var(--ms-text);background:#fafafa}
+.ms-tab.active{color:var(--ms-purple);border-bottom:2px solid var(--ms-purple);font-weight:600}
+.tab-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+
+/* PAGE */
+.ms-page{max-width:740px;margin:0 auto;padding:20px 16px 80px}
+
+/* HEADER CARD */
+.ms-form-header{background:white;border-radius:4px;box-shadow:var(--ms-shadow-card);overflow:hidden;margin-bottom:14px}
+.ms-header-accent{height:8px}
+.ha1{background:linear-gradient(90deg,#107c10,#00b050)}
+.ha2{background:linear-gradient(90deg,#c7922a,#f4b942)}
+.ha3{background:linear-gradient(90deg,#c50f1f,#e74d3b)}
+.har{background:linear-gradient(90deg,var(--ms-purple-dark),var(--ms-purple))}
+.ms-header-body{padding:20px 24px 18px}
+.ms-form-title{font-size:22px;font-weight:600;color:var(--ms-text);margin-bottom:4px}
+.ms-form-sub{font-size:12px;color:var(--ms-text-soft);margin-bottom:10px}
+.ms-form-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.ms-chip-meta{font-size:11px;color:var(--ms-text-soft);background:var(--ms-bg);border:1px solid var(--ms-border);border-radius:10px;padding:2px 9px}
+.ms-tier-label{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 9px;border-radius:2px;margin-bottom:10px}
+.tl1{background:var(--tier1-light);color:var(--tier1)}
+.tl2{background:var(--tier2-light);color:var(--tier2)}
+.tl3{background:var(--tier3-light);color:var(--tier3)}
+.ms-req{font-size:11px;color:var(--ms-red);margin-top:6px}
+
+/* INTENT BAR */
+.ms-intent{background:var(--ms-purple-xlight);border-left:3px solid var(--ms-purple);padding:9px 13px;font-size:13px;color:var(--ms-purple-dark);margin-bottom:12px;border-radius:0 2px 2px 0}
+
+/* SC GRID */
+.ms-sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin-bottom:14px}
+.ms-sc-card{background:white;border:1px solid var(--ms-border);border-radius:4px;padding:10px 12px;font-size:12px;color:var(--ms-text-soft);display:flex;gap:8px;align-items:flex-start}
+.ms-sc-num{background:var(--ms-purple-light);color:var(--ms-purple);font-weight:700;font-size:10px;border-radius:2px;padding:1px 5px;flex-shrink:0;margin-top:1px}
+
+/* INSTRUCTION */
+.ms-instr{background:var(--ms-purple-xlight);border:1px solid var(--ms-purple-light);border-radius:4px;padding:9px 13px;font-size:13px;color:var(--ms-purple-dark);margin-bottom:12px}
+
+/* Q CARD */
+.ms-q{background:white;border-radius:4px;box-shadow:var(--ms-shadow-card);margin-bottom:10px;overflow:hidden;border:1px solid transparent;transition:border-color .15s,box-shadow .15s}
+.ms-q:focus-within{border-color:var(--ms-purple);box-shadow:0 0 0 1px var(--ms-purple),var(--ms-shadow-card)}
+.ms-q-inner{padding:18px 22px 20px}
+.ms-q-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px}
+.ms-q-title{font-size:14px;font-weight:600;color:var(--ms-text);flex:1}
+.ms-q-title .req{color:var(--ms-red)}
+.ms-q-marks{font-size:11px;color:var(--ms-text-lighter);background:var(--ms-bg);border:1px solid var(--ms-border);border-radius:10px;padding:2px 8px;white-space:nowrap;flex-shrink:0}
+
+/* INPUTS */
+textarea,input[type=text]{width:100%;border:none;border-bottom:1px solid var(--ms-border);background:transparent;padding:6px 2px;font-family:inherit;font-size:14px;color:var(--ms-text);outline:none;transition:border-color .15s;resize:vertical;border-radius:0}
+textarea:focus,input[type=text]:focus{border-bottom:2px solid var(--ms-purple);margin-bottom:-1px}
+textarea{min-height:68px}
+.ms-lbl{font-size:11px;color:var(--ms-text-soft);margin-bottom:3px;display:block;margin-top:10px}
+
+/* WORD BANK */
+.ms-wb{background:#fffce5;border:1px solid #e8d700;border-radius:4px;padding:8px 11px;margin-top:10px}
+.ms-wb-lbl{font-size:10px;font-weight:700;color:#6a5700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.ms-chips{display:flex;flex-wrap:wrap;gap:5px}
+.ms-chip{background:white;border:1px solid #c8b900;color:#6a5700;font-size:12px;font-weight:600;padding:2px 9px;border-radius:2px;cursor:pointer;transition:all .12s;font-family:inherit}
+.ms-chip:hover{background:#ffe900}
+
+/* HINT */
+.ms-hint{background:#deecf9;border-left:3px solid var(--ms-blue);padding:7px 11px;font-size:12px;color:#004578;margin:8px 0;border-radius:0 2px 2px 0}
+
+/* FILL-IN */
+.ms-fill-code{background:#1e1e1e;border-radius:4px;padding:14px 16px;font-family:'Courier New',monospace;font-size:13px;color:#d4d4d4;line-height:2;margin:10px 0}
+input.fi{display:inline-block;border:none;border-bottom:2px solid #0078d4;background:rgba(0,120,212,.1);color:#9cdcfe;font-family:'Courier New',monospace;font-size:13px;width:68px;padding:0 4px;outline:none;border-radius:0;vertical-align:baseline}
+input.fi:focus{background:rgba(0,120,212,.2)}
+
+/* CODE BLOCK */
+.ms-code-wrap{background:#1e1e1e;border-radius:4px;overflow:hidden;margin:10px 0;border:1px solid #333}
+.ms-code-top{background:#2d2d2d;padding:5px 13px;display:flex;align-items:center;justify-content:space-between}
+.ms-code-lang{font-size:10px;color:#888;font-family:'Courier New',monospace;text-transform:uppercase;letter-spacing:.06em}
+.ms-gdb{display:inline-flex;align-items:center;gap:5px;background:#0078d4;color:white;border:none;border-radius:2px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;text-decoration:none;transition:background .15s;font-family:inherit}
+.ms-gdb:hover{background:#106ebe}
+.ms-gdb-bug{background:#c50f1f}.ms-gdb-bug:hover{background:#a00}
+.ms-code-static{padding:13px 15px;font-family:'Courier New',monospace;font-size:13px;color:#d4d4d4;line-height:1.7;overflow-x:auto}
+.kw{color:#569cd6}.str{color:#ce9178}.cmt{color:#6a9955}.fn{color:#dcdcaa}.op{color:#d4d4d4}
+textarea.ms-ce{background:#1e1e1e;color:#d4d4d4;font-family:'Courier New',monospace;font-size:13px;border:none;border-bottom:2px solid #444;padding:12px 15px;min-height:110px;border-radius:0;resize:vertical}
+textarea.ms-ce:focus{border-bottom:2px solid #0078d4;margin-bottom:0}
+
+/* STMT LIST */
+.ms-stmt-list{display:flex;flex-direction:column;gap:8px}
+.ms-stmt-row{border:1px solid var(--ms-border);border-radius:4px;overflow:hidden}
+.ms-stmt-top{padding:9px 13px;font-size:13px;font-style:italic;color:var(--ms-text);background:var(--ms-bg);border-bottom:1px solid var(--ms-border)}
+.ms-stmt-answers{display:flex}
+.ms-stmt-btn{flex:1;padding:6px 8px;border:none;background:white;font-size:12px;font-weight:600;cursor:pointer;color:var(--ms-text-soft);border-right:1px solid var(--ms-border);transition:all .12s;font-family:inherit}
+.ms-stmt-btn:last-of-type{border-right:none}
+.ms-stmt-btn:hover{background:var(--ms-purple-xlight);color:var(--ms-purple)}
+.ms-stmt-btn.av,.ms-stmt-btn.ab{background:#dff6dd;color:#107c10;border-bottom:2px solid #107c10}
+.ms-stmt-btn.an,.ms-stmt-btn.anb{background:#fde7e9;color:#c50f1f;border-bottom:2px solid #c50f1f}
+.ms-stmt-reason{padding:5px 13px 7px;border-top:1px solid var(--ms-border)}
+.ms-stmt-reason input{font-size:13px;padding:3px 0}
+
+/* SUBMIT */
+.ms-submit{background:white;border-radius:4px;box-shadow:var(--ms-shadow-card);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:14px;flex-wrap:wrap}
+.ms-score-big{font-size:28px;font-weight:600}
+.ms-score-of{font-size:13px;color:var(--ms-text-soft)}
+.ms-prog{flex:1;min-width:120px;max-width:160px}
+.ms-prog-bg{background:var(--ms-border);border-radius:2px;height:4px;overflow:hidden}
+.ms-prog-bar{height:100%;border-radius:2px;transition:width .4s ease;width:0%}
+.ms-prog-lbl{font-size:11px;color:var(--ms-text-lighter);margin-top:3px}
+.ms-grade-pill{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:10px;margin-left:6px;vertical-align:middle}
+.ms-submit-btn{background:var(--ms-purple);color:white;border:none;border-radius:2px;padding:7px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s}
+.ms-submit-btn:hover{background:var(--ms-purple-dark)}
+
+/* REFL */
+.ms-refl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:12px}
+.ms-refl-card{background:white;border:1px solid var(--ms-border);border-radius:4px;padding:12px 13px}
+.ms-refl-icon{font-size:18px;margin-bottom:4px}
+.ms-refl-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ms-text-soft);margin-bottom:5px}
+.ms-refl-card textarea{font-size:12px;min-height:50px}
+
+/* PEER */
+.ms-peer{background:white;border-radius:4px;box-shadow:var(--ms-shadow-card);padding:16px 22px;margin-top:10px}
+.ms-peer-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ms-purple);margin-bottom:5px}
+.ms-peer-sub{font-size:12px;color:var(--ms-text-soft);margin-bottom:12px}
+.ms-peer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:580px){.ms-peer-grid,.ms-refl-grid,.ms-sc-grid{grid-template-columns:1fr}.ms-tab{padding:10px 10px 8px;font-size:12px}}
+
+/* PANEL */
+.tier-panel{display:none}.tier-panel.active{display:block}
+
+/* SAVE STATUS */
+.ms-save{font-size:11px;color:var(--ms-text-lighter);text-align:right;padding:3px 2px 6px;transition:color .3s}
+.ms-save.saved{color:var(--ms-green)}
+
+/* RUBRIC */
+.ms-rub{background:white;border-radius:4px;box-shadow:var(--ms-shadow-card);overflow:hidden;margin-bottom:12px}
+.ms-rub-hdr{padding:11px 16px;font-size:13px;font-weight:700;border-bottom:1px solid var(--ms-border)}
+.rh1{background:var(--tier1-light);color:var(--tier1)}.rh2{background:var(--tier2-light);color:var(--tier2)}.rh3{background:var(--tier3-light);color:var(--tier3)}.rhr{background:var(--ms-purple-light);color:var(--ms-purple-dark)}
+.ms-rub-table{width:100%;border-collapse:collapse;font-size:13px}
+.ms-rub-table th{text-align:left;padding:7px 11px;border-bottom:2px solid var(--ms-border);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ms-text-soft);font-weight:700;background:var(--ms-bg)}
+.ms-rub-table td{padding:9px 11px;border-bottom:1px solid var(--ms-border);vertical-align:top}
+.ms-rub-table tr:last-child td{border-bottom:none}
+
+/* LOGIN OVERLAY */
+#login-overlay{position:fixed;inset:0;background:#f5f5fb;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI',sans-serif}
+.login-card{background:white;border-radius:8px;box-shadow:0 4px 24px rgba(0,0,0,.13);width:100%;max-width:420px;overflow:hidden}
+.login-card-top{background:#464775;padding:28px 28px 24px;text-align:center;color:white}
+.login-card-top svg{margin-bottom:10px}
+.login-card-top h1{font-size:20px;font-weight:700;margin-bottom:4px}
+.login-card-top p{font-size:12px;opacity:.75}
+.login-card-body{padding:24px 28px}
+.login-label{font-size:12px;font-weight:600;color:#616161;display:block;margin-bottom:5px}
+.login-input{width:100%;border:1.5px solid #d1d1d1;border-radius:4px;padding:10px 13px;font-size:14px;font-family:inherit;outline:none;margin-bottom:14px;color:#242424;transition:border-color .15s}
+.login-input:focus{border-color:#464775}
+.login-input.error{border-color:#c50f1f}
+.login-error{font-size:11px;color:#c50f1f;margin-top:-10px;margin-bottom:10px;display:none}
+.login-submit{width:100%;background:#464775;color:white;border:none;border-radius:4px;padding:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.login-submit:hover{background:#6264a7}
+.login-codes{background:#f5f5fb;border-radius:4px;padding:10px 13px;font-size:12px;color:#464775;margin-bottom:16px;border:1px solid #e0e0f0}
+.login-codes strong{display:block;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#8a8a8a}
+.login-code-chips{display:flex;flex-wrap:wrap;gap:5px}
+.login-code-chip{background:#464775;color:white;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;cursor:pointer;transition:background .12s}
+.login-code-chip:hover{background:#6264a7}
+.login-resume{background:#dff6dd;border:1px solid #107c10;border-radius:4px;padding:10px 13px;font-size:12px;color:#107c10;margin-bottom:14px;display:none}
+.login-resume strong{display:block;margin-bottom:4px}
+/* User badge in topbar */
+.user-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:white;font-size:11px;padding:3px 10px;border-radius:2px;display:flex;align-items:center;gap:5px;cursor:pointer}
+.user-badge:hover{background:rgba(255,255,255,.25)}
+</style>
+</head>
+<body>
+<!-- ── SHARED NAV ── -->
+<nav class="cs-nav" style="background:#464775;height:52px;display:flex;align-items:center;padding:0 24px;gap:0;position:sticky;top:0;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,.2);font-family:Segoe UI,sans-serif">
+  <a href="index.html" style="display:flex;align-items:center;gap:10px;color:white;font-size:14px;font-weight:600;text-decoration:none;margin-right:20px;flex-shrink:0"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="4" fill="rgba(255,255,255,.2)"/><path d="M6 7h10M6 11h7M6 15h9" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>CS Worksheets</a>
+  <div style="display:flex;align-items:center;gap:2px;flex:1;overflow-x:auto">
+    <a href="index.html" style="color:rgba(255,255,255,.75);font-size:13px;font-weight:500;padding:6px 14px;border-radius:4px;text-decoration:none;white-space:nowrap">🏠 Home</a>
+    <a href="boolean-expressions.html" style="color:white;background:rgba(255,255,255,.18);font-weight:600;color:rgba(255,255,255,.75;font-size:13px;font-weight:500;padding:6px 14px;border-radius:4px;text-decoration:none;white-space:nowrap">🔵 Boolean Expressions · Y9</a>
+    <a href="html-tags.html" style="color:rgba(255,255,255,.75);font-size:13px;font-weight:500;padding:6px 14px;border-radius:4px;text-decoration:none;white-space:nowrap">🟠 HTML Tags · Y7</a>
+  </div>
+  <span style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-size:11px;padding:3px 10px;border-radius:2px;flex-shrink:0">Mrs Ejaz · CS</span>
+</nav>
+
+<!-- ══ LOGIN OVERLAY ══ -->
+<div id="login-overlay">
+  <div class="login-card">
+    <div class="login-card-top">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="rgba(255,255,255,.15)"/><path d="M20 8a6 6 0 110 12 6 6 0 010-12zm0 14c6.627 0 12 2.686 12 6v2H8v-2c0-3.314 5.373-6 12-6z" fill="white"/></svg>
+      <h1>Boolean Expressions</h1>
+      <p>Year 9 · Computer Science · Lesson 6</p>
+    </div>
+    <div class="login-card-body">
+      <div class="login-resume" id="login-resume">
+        <strong>👋 Welcome back!</strong>
+        <span id="login-resume-msg"></span>
+      </div>
+      <label class="login-label">Your Full Name <span style="color:#c50f1f">*</span></label>
+      <input class="login-input" id="login-name" type="text" placeholder="e.g. Sara Ahmed" maxlength="60" onkeydown="if(event.key==='Enter')document.getElementById('login-class').focus()">
+      <div class="login-error" id="name-error">Please enter your name.</div>
+      <label class="login-label">Class Code <span style="color:#c50f1f">*</span></label>
+      <div class="login-codes">
+        <strong>Your teacher's class codes — click to fill:</strong>
+        <div class="login-code-chips">
+          <span class="login-code-chip" onclick="pickCode('9A')">9A</span>
+          <span class="login-code-chip" onclick="pickCode('9B')">9B</span>
+          <span class="login-code-chip" onclick="pickCode('9C')">9C</span>
+          <span class="login-code-chip" onclick="pickCode('9D')">9D</span>
+          <span class="login-code-chip" onclick="pickCode('9E')">9E</span>
+        </div>
+      </div>
+      <input class="login-input" id="login-class" type="text" placeholder="e.g. 9A" maxlength="10" onkeydown="if(event.key==='Enter')doLogin()">
+      <div class="login-error" id="class-error">Please enter your class code.</div>
+      <button class="login-submit" onclick="doLogin()">Start Worksheet →</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOP BAR -->
+<div class="ms-topbar">
+  <div class="ms-topbar-logo">
+    <svg width="20" height="20" viewBox="0 0 21 21" fill="none"><rect width="21" height="21" rx="2" fill="#8b8dc9"/><rect x="4" y="5" width="13" height="2" rx="1" fill="white"/><rect x="4" y="9" width="10" height="2" rx="1" fill="white" opacity=".8"/><rect x="4" y="13" width="8" height="2" rx="1" fill="white" opacity=".6"/></svg>
+    Microsoft Forms
+  </div>
+  <div class="ms-topbar-divider"></div>
+  <span class="ms-topbar-title">Boolean Expressions · Year 9 · Lesson 6</span>
+  <div class="ms-topbar-right">
+    <div class="user-badge" id="user-badge" style="display:none" onclick="logoutUser()">
+      <svg width="11" height="11" viewBox="0 0 16 16" fill="white"><path d="M8 2a3 3 0 110 6 3 3 0 010-6zm0 7c3.314 0 6 1.343 6 3v1H2v-1c0-1.657 2.686-3 6-3z"/></svg>
+      <span id="user-badge-text">Student</span>
+    </div>
+    <button class="ms-topbar-btn" onclick="save()">💾 Save</button>
+    <button class="ms-topbar-btn primary">Share</button>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="ms-tabs">
+  <button class="ms-tab active" data-tier="1" onclick="switchTier(1)"><span class="tab-dot" style="background:#107c10"></span>Tier 1 — Support</button>
+  <button class="ms-tab" data-tier="2" onclick="switchTier(2)"><span class="tab-dot" style="background:#c7922a"></span>Tier 2 — Core</button>
+  <button class="ms-tab" data-tier="3" onclick="switchTier(3)"><span class="tab-dot" style="background:#c50f1f"></span>Tier 3 — Extension</button>
+  <button class="ms-tab" data-tier="r" onclick="switchTier('r')" style="margin-left:auto">📋 Marking Rubric</button>
+  <button class="ms-tab" data-tier="dash" onclick="switchTier('dash');loadDashboard()">📊 Teacher Dashboard</button>
+</div>
+
+<div class="ms-page">
+<div id="ms-save" class="ms-save">Responses saved automatically</div>
+
+<!-- ══════ TIER 1 ══════ -->
+<div class="tier-panel active" id="tier-1">
+  <div class="ms-form-header">
+    <div class="ms-header-accent ha1"></div>
+    <div class="ms-header-body">
+      <div class="ms-tier-label tl1">🟢 Tier 1 — Support Activity</div>
+      <div class="ms-form-title">Boolean Expressions Interactive Worksheet</div>
+      <div class="ms-form-sub">True / False Conditions in Python &nbsp;·&nbsp; Scaffolded with word bank and hints · Grades E–M &nbsp;·&nbsp; </div>
+      <div class="ms-form-meta"><span class="ms-chip-meta">📅 22/04/2026</span><span class="ms-chip-meta">🎯 20 Marks</span><span class="ms-chip-meta">🏫 Year 9 · Computer Science</span></div>
+      <div class="ms-req">* Required</div>
+    </div>
+  </div>
+  <div class="ms-intent">🎯 <strong>Learning Intention:</strong> Students will be able to identify and create Boolean expressions that can be evaluated as <strong>true</strong> or <strong>false</strong> to support logical decision-making and control flow in programs.</div>
+  <div class="ms-sc-grid">
+    <div class="ms-sc-card"><span class="ms-sc-num">1</span>I can recognise statements that qualify as Boolean expressions.</div>
+    <div class="ms-sc-card"><span class="ms-sc-num">2</span>I can differentiate between factual Boolean statements and opinions.</div>
+    <div class="ms-sc-card"><span class="ms-sc-num">3</span>I can assign "Yes" or "No" to variables in Python code.</div>
+  </div>
+  <div class="ms-instr">🌟 <strong>Instructions:</strong> Click on answers, type in boxes, and use the Word Bank chips to fill blanks. Your work saves automatically!</div>
+
+  <!-- Q1 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">1. What is a Boolean expression? Complete the sentence using words from the Word Bank.<span class="req">*</span></div><div class="ms-q-marks">2 marks</div></div>
+    <p style="font-size:14px;color:#424242;margin-bottom:10px">A Boolean expression is a statement that can only be answered with <input class="fi" id="t1q1a" type="text" placeholder="______" maxlength="10"> or <input class="fi" id="t1q1b" type="text" placeholder="______" maxlength="10"> .</p>
+    <div class="ms-wb"><div class="ms-wb-lbl">💡 Word Bank — click to insert</div><div class="ms-chips"><span class="ms-chip" onclick="fb('t1q1a','True')">True</span><span class="ms-chip" onclick="fb('t1q1b','False')">False</span><span class="ms-chip" onclick="fb('t1q1a','Maybe')">Maybe</span><span class="ms-chip" onclick="fb('t1q1a','Opinion')">Opinion</span><span class="ms-chip" onclick="fb('t1q1a','Yes')">Yes</span><span class="ms-chip" onclick="fb('t1q1b','No')">No</span></div></div>
+  </div></div>
+
+  <!-- Q2 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">2. Sort the statements — click ✅ Boolean or ✗ Not Boolean for each one.<span class="req">*</span></div><div class="ms-q-marks">4 marks</div></div>
+    <div class="ms-hint">💡 <strong>Hint:</strong> A Boolean must be answerable with ONLY True or False — not based on opinion!</div>
+    <div class="ms-stmt-list" style="margin-top:10px">
+      <div class="ms-stmt-row"><div class="ms-stmt-top">"The sun rises in the east."</div><div class="ms-stmt-answers"><button class="ms-stmt-btn" onclick="sb(this,'t1q2a','bool')">✅ Boolean</button><button class="ms-stmt-btn" onclick="sb(this,'t1q2a','notbool')">✗ Not Boolean</button></div><input type="hidden" id="t1q2a"></div>
+      <div class="ms-stmt-row"><div class="ms-stmt-top">"Pizza is the best food."</div><div class="ms-stmt-answers"><button class="ms-stmt-btn" onclick="sb(this,'t1q2b','bool')">✅ Boolean</button><button class="ms-stmt-btn" onclick="sb(this,'t1q2b','notbool')">✗ Not Boolean</button></div><input type="hidden" id="t1q2b"></div>
+      <div class="ms-stmt-row"><div class="ms-stmt-top">"Water boils at 100°C at sea level."</div><div class="ms-stmt-answers"><button class="ms-stmt-btn" onclick="sb(this,'t1q2c','bool')">✅ Boolean</button><button class="ms-stmt-btn" onclick="sb(this,'t1q2c','notbool')">✗ Not Boolean</button></div><input type="hidden" id="t1q2c"></div>
+      <div class="ms-stmt-row"><div class="ms-stmt-top">"Tuesday is nicer than Monday."</div><div class="ms-stmt-answers"><button class="ms-stmt-btn" onclick="sb(this,'t1q2d','bool')">✅ Boolean</button><button class="ms-stmt-btn" onclick="sb(this,'t1q2d','notbool')">✗ Not Boolean</button></div><input type="hidden" id="t1q2d"></div>
+    </div>
+  </div></div>
+
+  <!-- Q3 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">3. Fill in the Python code — type "Yes" or "No" for each variable.<span class="req">*</span></div><div class="ms-q-marks">4 marks</div></div>
+    <div class="ms-code-wrap">
+      <div class="ms-code-top"><span class="ms-code-lang">🐍 Python</span><a class="ms-gdb" href="https://www.onlinegdb.com/online_python_compiler" target="_blank">▶ Run on OnlineGDB</a></div>
+      <div class="ms-fill-code">
+        <span class="cmt"># Statement 1: "There are 7 days in a week."</span><br>
+        days_in_week = <input class="fi" id="t1q3a" type="text" placeholder="Yes/No" maxlength="5"><br><br>
+        <span class="cmt"># Statement 2: "Cats are cuter than dogs."</span><br>
+        cats_are_cuter = <input class="fi" id="t1q3b" type="text" placeholder="Yes/No" maxlength="5"><br><br>
+        <span class="cmt"># Statement 3: "The moon orbits Earth."</span><br>
+        moon_orbits = <input class="fi" id="t1q3c" type="text" placeholder="Yes/No" maxlength="5"><br><br>
+        <span class="cmt"># Statement 4: "Maths is the hardest subject."</span><br>
+        maths_hardest = <input class="fi" id="t1q3d" type="text" placeholder="Yes/No" maxlength="5">
+      </div>
+    </div>
+    <div class="ms-wb"><div class="ms-wb-lbl">💡 Word Bank</div><div class="ms-chips"><span class="ms-chip">"Yes"</span><span class="ms-chip">"No"</span></div></div>
+  </div></div>
+
+  <!-- Q4 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">4. Write your own Boolean expression about school life. Then write the Python code for it.<span class="req">*</span></div><div class="ms-q-marks">4 marks</div></div>
+    <div class="ms-hint">💡 <strong>Hint:</strong> Choose a fact that is clearly True or False — not an opinion. E.g. "Today is a weekday."</div>
+    <label class="ms-lbl">My Boolean statement:</label>
+    <textarea id="t1q4a" placeholder='"Today is a school day."' rows="2"></textarea>
+    <label class="ms-lbl">My Python code:</label>
+    <div class="ms-code-wrap">
+      <div class="ms-code-top"><span class="ms-code-lang">🐍 Python</span><a class="ms-gdb" href="https://www.onlinegdb.com/online_python_compiler" target="_blank">▶ Test on OnlineGDB</a></div>
+      <textarea class="ms-ce" id="t1q4b" placeholder='variable_name = "Yes"' rows="3"></textarea>
+    </div>
+  </div></div>
+
+  <!-- Q5 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">5. Explain in your own words: why can't an opinion be a Boolean expression? Give ONE example of an opinion and ONE fact to support your answer.<span class="req">*</span></div><div class="ms-q-marks">6 marks</div></div>
+    <label class="ms-lbl">Your explanation:</label>
+    <textarea id="t1q5a" placeholder="Type your explanation here..." rows="4"></textarea>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+      <div><label class="ms-lbl">Opinion example:</label><input type="text" id="t1q5b" placeholder="e.g. Cats are cuter than dogs."></div>
+      <div><label class="ms-lbl">Fact example:</label><input type="text" id="t1q5c" placeholder="e.g. The Earth orbits the Sun."></div>
+    </div>
+  </div></div>
+
+  <div style="margin-top:10px">
+    <button class="ms-submit-btn" style="width:100%;padding:14px;font-size:15px;letter-spacing:.02em;border-radius:4px;display:flex;align-items:center;justify-content:center;gap:8px" onclick="submitScore('t1')">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6.5 11.5L3 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Submit &amp; See My Score
+    </button>
+  </div>
+  <div id="t1-result" style="display:none;margin-top:12px"></div>
+  <div style="margin-top:12px"><div class="ms-peer-title">🔄 SELF-REFLECTION</div>
+    <div class="ms-refl-grid">
+      <div class="ms-refl-card"><div class="ms-refl-icon">😊</div><div class="ms-refl-lbl">I felt confident about…</div><textarea id="t1r1" placeholder="Type here..." rows="3"></textarea></div>
+      <div class="ms-refl-card"><div class="ms-refl-icon">🤔</div><div class="ms-refl-lbl">I found it tricky when…</div><textarea id="t1r2" placeholder="Type here..." rows="3"></textarea></div>
+      <div class="ms-refl-card"><div class="ms-refl-icon">🎯</div><div class="ms-refl-lbl">Next time I will…</div><textarea id="t1r3" placeholder="Type here..." rows="3"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ TIER 2 ══════ -->
+<div class="tier-panel" id="tier-2">
+  <div class="ms-form-header">
+    <div class="ms-header-accent ha2"></div>
+    <div class="ms-header-body">
+      <div class="ms-tier-label tl2">🟡 Tier 2 — Core Activity</div>
+      <div class="ms-form-title">Boolean Expressions Interactive Worksheet</div>
+      <div class="ms-form-sub">True / False Conditions in Python &nbsp;·&nbsp; Independent work with some scaffolding · Grades M–B &nbsp;·&nbsp; </div>
+      <div class="ms-form-meta"><span class="ms-chip-meta">📅 22/04/2026</span><span class="ms-chip-meta">🎯 20 Marks</span><span class="ms-chip-meta">🏫 Year 9 · Computer Science</span></div>
+      <div class="ms-req">* Required</div>
+    </div>
+  </div>
+  <div class="ms-intent">🎯 <strong>Learning Intention:</strong> Students will be able to identify and create Boolean expressions evaluated as <strong>true</strong> or <strong>false</strong> to support logical decision-making and control flow in programs.</div>
+  <div class="ms-sc-grid">
+    <div class="ms-sc-card"><span class="ms-sc-num">1</span>I can recognise statements that qualify as Boolean expressions.</div>
+    <div class="ms-sc-card"><span class="ms-sc-num">2</span>I can differentiate between factual Boolean statements and opinions.</div>
+    <div class="ms-sc-card"><span class="ms-sc-num">3</span>I can apply Boolean expressions in code and explain my reasoning.</div>
+  </div>
+  <div class="ms-instr">🌟 <strong>Instructions:</strong> Answer all questions independently. Justify your decisions in full sentences where asked.</div>
+
+  <!-- Q1 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">1. In your own words, define a Boolean expression and explain why it is important in programming.<span class="req">*</span></div><div class="ms-q-marks">2 marks</div></div>
+    <textarea id="t2q1" placeholder="Type your definition and explanation here..." rows="4"></textarea>
+  </div></div>
+
+  <!-- Q2 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">2. For each statement: click Yes or No, then explain your reasoning.<span class="req">*</span></div><div class="ms-q-marks">6 marks</div></div>
+    <div class="ms-stmt-list">
+      <div class="ms-stmt-row"><div class="ms-stmt-top">"Today is a school day."</div><div class="ms-stmt-answers"><button class="ms-stmt-btn" onclick="sb(this,'t2q2a','yes')">Yes — Boolean</button><button class="ms-stmt-btn" onclick="sb(this,'t2q2a','no')">No — Not Boolean</button></div><div class="ms-stmt-reason"><input type="text" id="t2q2a-r" placeholder="Why? Give your reason..."></div><input type="hidden" id="t2q2a"></div>
+      <div class="ms-stmt-row"><div class="ms-stmt-top">"Chocolate is the best flavour."</div><div class="ms-stmt-answers"><button class="ms-stmt-btn" onclick="sb(this,'t2q2b','yes')">Yes — Boolean</button><button class="ms-stmt-btn" onclick="sb(this,'t2q2b','no')">No — Not Boolean</button></div><div class="ms-stmt-reason"><input type="text" id="t2q2b-r" placeholder="Why? Give your reason..."></div><input type="hidden" id="t2q2b"></div>
+      <div class="ms-stmt-row"><div class="ms-stmt-top">"A triangle has 3 sides."</div><div class="ms-stmt-answers"><button class="ms-stmt-btn" onclick="sb(this,'t2q2c','yes')">Yes — Boolean</button><button class="ms-stmt-btn" onclick="sb(this,'t2q2c','no')">No — Not Boolean</button></div><div class="ms-stmt-reason"><input type="text" id="t2q2c-r" placeholder="Why? Give your reason..."></div><input type="hidden" id="t2q2c"></div>
+      <div class="ms-stmt-row"><div class="ms-stmt-top">"Coding is the most fun subject."</div><div class="ms-stmt-answers"><button class="ms-stmt-btn" onclick="sb(this,'t2q2d','yes')">Yes — Boolean</button><button class="ms-stmt-btn" onclick="sb(this,'t2q2d','no')">No — Not Boolean</button></div><div class="ms-stmt-reason"><input type="text" id="t2q2d-r" placeholder="Why? Give your reason..."></div><input type="hidden" id="t2q2d"></div>
+      <div class="ms-stmt-row"><div class="ms-stmt-top">"A year has 365 days."</div><div class="ms-stmt-answers"><button class="ms-stmt-btn" onclick="sb(this,'t2q2e','yes')">Yes — Boolean</button><button class="ms-stmt-btn" onclick="sb(this,'t2q2e','no')">No — Not Boolean</button></div><div class="ms-stmt-reason"><input type="text" id="t2q2e-r" placeholder="Why? Give your reason..."></div><input type="hidden" id="t2q2e"></div>
+      <div class="ms-stmt-row"><div class="ms-stmt-top">"Summer is better than winter."</div><div class="ms-stmt-answers"><button class="ms-stmt-btn" onclick="sb(this,'t2q2f','yes')">Yes — Boolean</button><button class="ms-stmt-btn" onclick="sb(this,'t2q2f','no')">No — Not Boolean</button></div><div class="ms-stmt-reason"><input type="text" id="t2q2f-r" placeholder="Why? Give your reason..."></div><input type="hidden" id="t2q2f"></div>
+    </div>
+  </div></div>
+
+  <!-- Q3 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">3. Write Python code for the Boolean statements from Q2. Only include the ones you said were Boolean.<span class="req">*</span></div><div class="ms-q-marks">4 marks</div></div>
+    <div class="ms-code-wrap">
+      <div class="ms-code-top"><span class="ms-code-lang">🐍 Python</span><a class="ms-gdb" href="https://www.onlinegdb.com/online_python_compiler" target="_blank">▶ Run on OnlineGDB</a></div>
+      <textarea class="ms-ce" id="t2q3" placeholder="# Write your Boolean variables here:&#10;school_day = &quot;Yes&quot;&#10;triangle_sides = &quot;Yes&quot;" rows="6"></textarea>
+    </div>
+  </div></div>
+
+  <!-- Q4 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">4. Write TWO original Boolean expressions about your school's daily routine. Write the Python code for each.<span class="req">*</span></div><div class="ms-q-marks">4 marks</div></div>
+    <label class="ms-lbl">My Boolean statements:</label>
+    <textarea id="t2q4a" placeholder="1. ...&#10;2. ..." rows="3"></textarea>
+    <div class="ms-code-wrap" style="margin-top:10px">
+      <div class="ms-code-top"><span class="ms-code-lang">🐍 Python</span><a class="ms-gdb" href="https://www.onlinegdb.com/online_python_compiler" target="_blank">▶ Test on OnlineGDB</a></div>
+      <textarea class="ms-ce" id="t2q4b" placeholder="# Your Boolean variables:&#10;my_boolean_1 = &quot;Yes&quot;&#10;my_boolean_2 = &quot;No&quot;" rows="5"></textarea>
+    </div>
+  </div></div>
+
+  <!-- Q5 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">5. A classmate says: <em>"Statements like 'The weather is nice' are Boolean because everyone can agree on it."</em> Do you agree or disagree? Explain using what you know about Boolean expressions.<span class="req">*</span></div><div class="ms-q-marks">4 marks</div></div>
+    <textarea id="t2q5" placeholder="I disagree/agree because..." rows="5"></textarea>
+  </div></div>
+
+  <div style="margin-top:10px">
+    <button class="ms-submit-btn" style="width:100%;padding:14px;font-size:15px;letter-spacing:.02em;border-radius:4px;display:flex;align-items:center;justify-content:center;gap:8px" onclick="submitScore('t2')">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6.5 11.5L3 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Submit &amp; See My Score
+    </button>
+  </div>
+  <div id="t2-result" style="display:none;margin-top:12px"></div>
+  <div style="margin-top:12px"><div class="ms-peer-title">🔄 SELF-REFLECTION</div>
+    <div class="ms-refl-grid">
+      <div class="ms-refl-card"><div class="ms-refl-icon">✅</div><div class="ms-refl-lbl">I met the success criteria…</div><textarea id="t2r1" placeholder="Type here..." rows="3"></textarea></div>
+      <div class="ms-refl-card"><div class="ms-refl-icon">🔍</div><div class="ms-refl-lbl">I still want to understand…</div><textarea id="t2r2" placeholder="Type here..." rows="3"></textarea></div>
+      <div class="ms-refl-card"><div class="ms-refl-icon">⭐</div><div class="ms-refl-lbl">My strongest answer was…</div><textarea id="t2r3" placeholder="Type here..." rows="3"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ TIER 3 ══════ -->
+<div class="tier-panel" id="tier-3">
+  <div class="ms-form-header">
+    <div class="ms-header-accent ha3"></div>
+    <div class="ms-header-body">
+      <div class="ms-tier-label tl3">🔴 Tier 3 — Extension Challenge</div>
+      <div class="ms-form-title">Boolean Expressions Interactive Worksheet</div>
+      <div class="ms-form-sub">True / False Conditions in Python &nbsp;·&nbsp; Higher-order thinking · Applied programming · Grades B–Outstanding &nbsp;·&nbsp; </div>
+      <div class="ms-form-meta"><span class="ms-chip-meta">📅 22/04/2026</span><span class="ms-chip-meta">🎯 20 Marks</span><span class="ms-chip-meta">🏫 Year 9 · Computer Science</span></div>
+      <div class="ms-req">* Required</div>
+    </div>
+  </div>
+  <div class="ms-intent">🎯 <strong>Learning Intention:</strong> Students will be able to identify and create Boolean expressions evaluated as <strong>true</strong> or <strong>false</strong> to support logical decision-making and control flow in programs.</div>
+  <div class="ms-sc-grid">
+    <div class="ms-sc-card"><span class="ms-sc-num">1</span>I can design systems that require multiple Boolean conditions.</div>
+    <div class="ms-sc-card"><span class="ms-sc-num">2</span>I can apply Boolean logic in Python with if/else control flow.</div>
+    <div class="ms-sc-card"><span class="ms-sc-num">3</span>I can evaluate and critique Boolean logic in a given program.</div>
+  </div>
+  <div class="ms-instr">🌟 <strong>Instructions:</strong> All questions require detailed answers. Write clear, well-structured Python code and full-sentence explanations. Think critically!</div>
+
+  <!-- Q1 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">1. Explain the difference between a Boolean expression and an opinion, using a real-world analogy from outside the classroom.<span class="req">*</span></div><div class="ms-q-marks">2 marks</div></div>
+    <textarea id="t3q1" placeholder="Type your analogy and explanation here..." rows="5"></textarea>
+  </div></div>
+
+  <!-- Q2 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">2. Smart Door System — Design Challenge. A school door opens ONLY if a student is enrolled AND it is a school day. Write a complete Python program with Boolean variables and an if/else block.<span class="req">*</span></div><div class="ms-q-marks">4 marks</div></div>
+    <div class="ms-code-wrap">
+      <div class="ms-code-top"><span class="ms-code-lang">🐍 Starter Code</span><a class="ms-gdb" href="https://www.onlinegdb.com/online_python_compiler" target="_blank">▶ Run on OnlineGDB</a></div>
+      <div class="ms-code-static"><span class="cmt"># Smart Door System</span>
+<span class="kw">is_enrolled</span> = <span class="str">"Yes"</span>
+<span class="kw">is_school_day</span> = <span class="str">"Yes"</span>
+
+<span class="kw">if</span> is_enrolled <span class="op">==</span> <span class="str">"Yes"</span> <span class="kw">and</span> is_school_day <span class="op">==</span> <span class="str">"Yes"</span>:
+    <span class="fn">print</span>(<span class="str">"Door opens!"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"Access denied."</span>)</div>
+    </div>
+    <label class="ms-lbl">Write / extend your program:</label>
+    <div class="ms-code-wrap">
+      <div class="ms-code-top"><span class="ms-code-lang">🐍 Your Code</span><a class="ms-gdb" href="https://www.onlinegdb.com/online_python_compiler" target="_blank">▶ Test on OnlineGDB</a></div>
+      <textarea class="ms-ce" id="t3q2a" placeholder="# Smart Door System&#10;is_enrolled = &quot;Yes&quot;&#10;is_school_day = &quot;Yes&quot;&#10;&#10;if is_enrolled == &quot;Yes&quot; and is_school_day == &quot;Yes&quot;:&#10;    print(&quot;Door opens!&quot;)&#10;else:&#10;    print(&quot;Access denied.&quot;)" rows="8"></textarea>
+    </div>
+    <label class="ms-lbl">Explain how your program uses Boolean logic:</label>
+    <textarea id="t3q2b" placeholder="Type your explanation..." rows="3"></textarea>
+  </div></div>
+
+  <!-- Q3 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">3. Extend your Smart Door System to include a THIRD condition: the student must also be wearing their uniform. Update your code and explain how adding a condition changes your Boolean logic.<span class="req">*</span></div><div class="ms-q-marks">4 marks</div></div>
+    <div class="ms-code-wrap">
+      <div class="ms-code-top"><span class="ms-code-lang">🐍 Template — 3 Conditions</span><a class="ms-gdb" href="https://www.onlinegdb.com/online_python_compiler" target="_blank">▶ Run on OnlineGDB</a></div>
+      <div class="ms-code-static"><span class="cmt"># Extended Smart Door System — 3 conditions</span>
+<span class="kw">is_enrolled</span> = <span class="str">"Yes"</span>
+<span class="kw">is_school_day</span> = <span class="str">"Yes"</span>
+<span class="kw">is_wearing_uniform</span> = <span class="str">"Yes"</span>
+
+<span class="kw">if</span> ...:
+    <span class="fn">print</span>(<span class="str">"Door opens!"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"Access denied."</span>)</div>
+    </div>
+    <label class="ms-lbl">My completed code:</label>
+    <div class="ms-code-wrap">
+      <div class="ms-code-top"><span class="ms-code-lang">🐍 Your Code</span><a class="ms-gdb" href="https://www.onlinegdb.com/online_python_compiler" target="_blank">▶ Test on OnlineGDB</a></div>
+      <textarea class="ms-ce" id="t3q3a" placeholder="# Extended Smart Door System — 3 conditions&#10;is_enrolled = &quot;Yes&quot;&#10;is_school_day = &quot;Yes&quot;&#10;is_wearing_uniform = &quot;Yes&quot;&#10;&#10;if ...:&#10;    print(&quot;Door opens!&quot;)&#10;else:&#10;    print(&quot;Access denied.&quot;)" rows="8"></textarea>
+    </div>
+    <label class="ms-lbl">How does adding a third condition affect the logic?</label>
+    <textarea id="t3q3b" placeholder="Type your explanation..." rows="3"></textarea>
+  </div></div>
+
+  <!-- Q4 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">4. Critical Thinking — Debug and Evaluate. A student wrote this code. Find ALL the problems and rewrite it correctly.<span class="req">*</span></div><div class="ms-q-marks">6 marks</div></div>
+    <div class="ms-code-wrap">
+      <div class="ms-code-top"><span class="ms-code-lang">🐛 Buggy Code</span><a class="ms-gdb ms-gdb-bug" href="https://www.onlinegdb.com/online_python_compiler" target="_blank">🐛 Debug on OnlineGDB</a></div>
+      <div class="ms-code-static"><span class="cmt"># Student's attempt</span>
+<span class="kw">is_raining</span> = <span class="str">"Sometimes"</span>
+<span class="kw">temperature</span> = <span class="str">"It feels cold today"</span>
+
+<span class="kw">if</span> is_raining <span class="op">==</span> <span class="str">"Sometimes"</span> <span class="kw">and</span> temperature <span class="op">==</span> <span class="str">"It feels cold today"</span>:
+    <span class="fn">print</span>(<span class="str">"Bring a jacket!"</span>)</div>
+    </div>
+    <label class="ms-lbl" style="color:var(--ms-red);font-weight:700">Problems I found:</label>
+    <textarea id="t3q4a" placeholder="List all the problems with this code..." rows="4"></textarea>
+    <label class="ms-lbl">My corrected code:</label>
+    <div class="ms-code-wrap">
+      <div class="ms-code-top"><span class="ms-code-lang">🐍 Corrected Code</span><a class="ms-gdb" href="https://www.onlinegdb.com/online_python_compiler" target="_blank">▶ Verify on OnlineGDB</a></div>
+      <textarea class="ms-ce" id="t3q4b" placeholder="# Corrected version&#10;is_raining = &quot;Yes&quot;&#10;..." rows="7"></textarea>
+    </div>
+  </div></div>
+
+  <!-- Q5 -->
+  <div class="ms-q"><div class="ms-q-inner">
+    <div class="ms-q-top"><div class="ms-q-title">5. Real-World Application: Describe TWO real-world systems (outside this lesson) that use Boolean logic. For each, identify the conditions and what happens when True vs False.<span class="req">*</span></div><div class="ms-q-marks">4 marks</div></div>
+    <label class="ms-lbl">System 1:</label>
+    <textarea id="t3q5a" placeholder="System name, conditions, True outcome, False outcome..." rows="3"></textarea>
+    <label class="ms-lbl">System 2:</label>
+    <textarea id="t3q5b" placeholder="System name, conditions, True outcome, False outcome..." rows="3"></textarea>
+  </div></div>
+
+  <div style="margin-top:10px">
+    <button class="ms-submit-btn" style="width:100%;padding:14px;font-size:15px;letter-spacing:.02em;border-radius:4px;display:flex;align-items:center;justify-content:center;gap:8px" onclick="submitScore('t3')">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6.5 11.5L3 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Submit &amp; See My Score
+    </button>
+  </div>
+  <div id="t3-result" style="display:none;margin-top:12px"></div>
+  <div class="ms-peer" style="margin-top:10px">
+    <div class="ms-peer-title">🔁 PEER REVIEW</div>
+    <div class="ms-peer-sub">Swap your worksheet with a classmate. Give them written feedback below, then discuss together.</div>
+    <div class="ms-peer-grid">
+      <div class="ms-refl-card"><div class="ms-refl-icon">⭐⭐</div><div class="ms-refl-lbl">Two Stars (Strengths)</div><textarea id="t3peer1" placeholder="What did they do well?" rows="3"></textarea></div>
+      <div class="ms-refl-card"><div class="ms-refl-icon">🌱</div><div class="ms-refl-lbl">One Wish (Improvement)</div><textarea id="t3peer2" placeholder="What could be improved?" rows="3"></textarea></div>
+      <div class="ms-refl-card"><div class="ms-refl-icon">👤</div><div class="ms-refl-lbl">Reviewer Name &amp; Date</div><input type="text" id="t3peer3" placeholder="Reviewer name..." style="display:block;margin-bottom:8px"><input type="text" id="t3peer4" value="22/04/2026"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ RUBRIC ══════ -->
+<div class="tier-panel" id="tier-r">
+  <div class="ms-form-header">
+    <div class="ms-header-accent har"></div>
+    <div class="ms-header-body">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ms-purple);margin-bottom:6px">Teacher Reference · Year 9 · Lesson 6</div>
+      <div class="ms-form-title">Marking Rubric &amp; Assessment Guide</div>
+      <div class="ms-form-sub">Boolean Expressions · All Tiers · 20 Marks Each</div>
+    </div>
+  </div>
+  <div class="ms-rub"><div class="ms-rub-hdr rh1">🟢 Tier 1 — Support Marking Guide</div>
+    <table class="ms-rub-table"><thead><tr><th>Q</th><th>Criteria</th><th>Marks</th><th>Model Answer / Key Points</th></tr></thead><tbody>
+      <tr><td>1</td><td>Completes the sentence correctly</td><td>2</td><td>"True" and "False" (1 mark each)</td></tr>
+      <tr><td>2</td><td>Correctly categorises 4 statements</td><td>4</td><td>Boolean: Sun/east ✓, Boils 100°C ✓ | Not Boolean: Pizza ✓, Tuesday ✓ — 1 each</td></tr>
+      <tr><td>3</td><td>Correct "Yes"/"No" for each variable</td><td>4</td><td>days_in_week="Yes", cats_are_cuter="No", moon_orbits="Yes", maths_hardest="No" — 1 each</td></tr>
+      <tr><td>4</td><td>Valid Boolean statement + correct Python syntax</td><td>4</td><td>Statement must be verifiable T/F (2), Python syntax correct (2)</td></tr>
+      <tr><td>5</td><td>Explanation with 2 examples</td><td>6</td><td>Correct explanation (2), valid opinion example (2), valid fact example (2)</td></tr>
+    </tbody></table>
+  </div>
+  <div class="ms-rub"><div class="ms-rub-hdr rh2">🟡 Tier 2 — Core Marking Guide</div>
+    <table class="ms-rub-table"><thead><tr><th>Q</th><th>Criteria</th><th>Marks</th><th>Model Answer / Key Points</th></tr></thead><tbody>
+      <tr><td>1</td><td>Own-words definition + programming relevance</td><td>2</td><td>Definition (1): can only be T/F. Importance (1): enables decisions / control flow</td></tr>
+      <tr><td>2</td><td>6 correct Y/N + justified reasoning</td><td>6</td><td>Boolean: school day, triangle, 365 days. Not Boolean: chocolate, coding fun, summer. 0.5 Y/N + 0.5 reason each</td></tr>
+      <tr><td>3</td><td>Python code for Boolean statements only</td><td>4</td><td>Correct variable names (1), correct "Yes"/"No" strings (2), syntax (1)</td></tr>
+      <tr><td>4</td><td>2 original Boolean statements + code</td><td>4</td><td>Each verifiable T/F (1 each), code syntactically correct (1 each)</td></tr>
+      <tr><td>5</td><td>Critical disagreement with justification</td><td>4</td><td>Must disagree (1), reference opinion vs fact (1), link to Boolean definition (1), clear example (1)</td></tr>
+    </tbody></table>
+  </div>
+  <div class="ms-rub"><div class="ms-rub-hdr rh3">🔴 Tier 3 — Extension Marking Guide</div>
+    <table class="ms-rub-table"><thead><tr><th>Q</th><th>Criteria</th><th>Marks</th><th>Model Answer / Key Points</th></tr></thead><tbody>
+      <tr><td>1</td><td>Analogy with clear Boolean vs opinion distinction</td><td>2</td><td>Analogy is apt (1), clearly distinguishes objective fact from subjective view (1)</td></tr>
+      <tr><td>2</td><td>Complete, functional Python if/else program</td><td>4</td><td>Variables declared correctly (1), AND condition used (1), both branches coded (1), explanation (1)</td></tr>
+      <tr><td>3</td><td>Extended 3-condition program + analysis</td><td>4</td><td>Third variable (1), 3-way AND condition (1), both branches (1), impact analysis (1)</td></tr>
+      <tr><td>4</td><td>Debug analysis + corrected code</td><td>6</td><td>"Sometimes" not Boolean (1), "feels cold" subjective (1), vars need T/F (1), corrected vars (1), corrected if (1), both print branches (1)</td></tr>
+      <tr><td>5</td><td>2 real-world systems with Boolean logic explained</td><td>4</td><td>System 1 with conditions + outcomes (2), System 2 with conditions + outcomes (2)</td></tr>
+    </tbody></table>
+  </div>
+  <div class="ms-rub"><div class="ms-rub-hdr rhr">📊 Grade Boundaries — All Tiers / 20 Marks</div>
+    <table class="ms-rub-table"><thead><tr><th>Grade</th><th>Mark Range</th><th>Descriptor</th></tr></thead><tbody>
+      <tr><td><strong style="color:#107c10">Outstanding / E</strong></td><td style="font-family:monospace">18–20</td><td>All Boolean concepts correctly applied; code syntactically and logically correct; thorough explanations showing deep understanding.</td></tr>
+      <tr><td><strong style="color:#8a4000">Exceeds / M+</strong></td><td style="font-family:monospace">15–17</td><td>Most concepts correctly applied; minor errors in code or explanation; clear understanding of Boolean vs opinion.</td></tr>
+      <tr><td><strong style="color:#c7922a">Meets / M</strong></td><td style="font-family:monospace">11–14</td><td>Core concepts understood; some errors in code or reasoning; generally distinguishes Boolean from opinion with some support.</td></tr>
+      <tr><td><strong style="color:#c50f1f">Below / B</strong></td><td style="font-family:monospace">0–10</td><td>Partial understanding; significant errors in code or categorisation; needs further support with Boolean fundamentals.</td></tr>
+    </tbody></table>
+  </div>
+</div>
+
+<!-- ══════ TEACHER DASHBOARD ══════ -->
+<div class="tier-panel" id="tier-dash">
+</div>
+
+</div><!-- /ms-page -->
+<style>
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes countUp{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+@keyframes barGrow{from{width:0%}to{width:var(--bar-w)}}
+@keyframes popIn{0%{transform:scale(0)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes shimmer{0%,100%{opacity:1}50%{opacity:.6}}
+.result-card{background:#fff;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.12);overflow:hidden;animation:fadeUp .4s ease}
+.result-header{padding:28px 28px 20px;text-align:center;position:relative}
+.result-circle{width:110px;height:110px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 16px;animation:popIn .5s cubic-bezier(.175,.885,.32,1.275) .2s both}
+.result-circle .big-score{font-size:36px;font-weight:700;line-height:1}
+.result-circle .of-score{font-size:13px;opacity:.75;margin-top:2px}
+.result-grade-badge{display:inline-block;font-size:15px;font-weight:700;padding:6px 20px;border-radius:100px;animation:countUp .4s ease .4s both}
+.result-name{font-size:13px;color:#616161;margin-top:8px}
+.result-divider{border:none;border-top:1px solid #e8e8e8;margin:0}
+.result-body{padding:20px 24px}
+.result-body-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#8a8a8a;margin-bottom:12px}
+.qrow{display:flex;align-items:center;gap:10px;margin-bottom:8px;animation:fadeUp .3s ease both}
+.qrow-label{font-size:12px;color:#242424;font-weight:500;width:36px;flex-shrink:0}
+.qrow-bar-bg{flex:1;height:8px;background:#f0f0f0;border-radius:100px;overflow:hidden}
+.qrow-bar{height:100%;border-radius:100px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+.qrow-score{font-size:12px;font-weight:600;width:40px;text-align:right;flex-shrink:0}
+.qrow-status{font-size:14px;width:18px;flex-shrink:0}
+.result-footer{background:#f9f9f9;border-top:1px solid #e8e8e8;padding:14px 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.result-msg{font-size:13px;color:#424242;flex:1;line-height:1.5}
+.print-btn{background:#464775;color:white;border:none;border-radius:4px;padding:7px 16px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.print-btn:hover{background:#6264a7}
+.retry-btn{background:transparent;color:#464775;border:1px solid #464775;border-radius:4px;padding:7px 16px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.retry-btn:hover{background:#f0f0f8}
+.confetti-wrap{position:relative;overflow:hidden}
+.conf-dot{position:absolute;width:8px;height:8px;border-radius:2px;animation:confFall 1.2s ease-in forwards}
+@keyframes confFall{0%{transform:translateY(-10px) rotate(0deg);opacity:1}100%{transform:translateY(80px) rotate(360deg);opacity:0}}
+@media print{.ms-topbar,.ms-tabs,.ms-q,.ms-instr,.ms-intent,.ms-sc-grid,.ms-form-sub,.ms-instr,.ms-peer,.ms-refl-grid,.ms-save,[onclick]{display:none!important}.result-card{box-shadow:none;border:2px solid #ccc}.print-btn,.retry-btn{display:none!important}}
+</style>
+<script>
+function switchTier(t){
+  document.querySelectorAll('.ms-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tier-panel').forEach(p=>p.classList.remove('active'));
+  const tab=document.querySelector(`.ms-tab[data-tier="${t}"]`);
+  if(tab)tab.classList.add('active');
+  const panel=document.getElementById(`tier-${t}`);
+  if(panel)panel.classList.add('active');
+}
+function fb(id,val){const el=document.getElementById(id);if(el&&!el.value)el.value=val;save();}
+function sb(btn,id,val){
+  const row=btn.closest('.ms-stmt-row');
+  row.querySelectorAll('.ms-stmt-btn').forEach(b=>{b.classList.remove('av','an','ab','anb');});
+  const cls=val==='yes'||val==='bool'?'a'+(val==='yes'?'v':'b'):'an'+(val==='no'?'':'b');
+  btn.classList.add(cls);
+  document.getElementById(id).value=val;
+  save();
+}
+
+/* ══ IDENTITY ══ */
+let currentUser = null;
+
+function getUserKey(name, cls) {
+  return 'bw_progress_' + name.trim().toLowerCase().replace(/\s+/g,'_') + '_' + cls.trim().toLowerCase();
+}
+
+function pickCode(code) {
+  document.getElementById('login-class').value = code;
+}
+
+function doLogin() {
+  const name = document.getElementById('login-name').value.trim();
+  const cls  = document.getElementById('login-class').value.trim();
+  let ok = true;
+  if (!name) { document.getElementById('name-error').style.display='block'; document.getElementById('login-name').classList.add('error'); ok=false; } 
+  else { document.getElementById('name-error').style.display='none'; document.getElementById('login-name').classList.remove('error'); }
+  if (!cls)  { document.getElementById('class-error').style.display='block'; document.getElementById('login-class').classList.add('error'); ok=false; }
+  else { document.getElementById('class-error').style.display='none'; document.getElementById('login-class').classList.remove('error'); }
+  if (!ok) return;
+
+  currentUser = { name, cls, key: getUserKey(name, cls) };
+  localStorage.setItem('bw_last_user', JSON.stringify(currentUser));
+
+  // Show badge
+  document.getElementById('user-badge').style.display='flex';
+  document.getElementById('user-badge-text').textContent = name + ' · ' + cls;
+
+  // Hide overlay
+  document.getElementById('login-overlay').style.display='none';
+
+  // Load their saved progress
+  loadProgress();
+}
+
+function logoutUser() {
+  if (!confirm('Log out? Your progress is saved and you can resume with the same name + class code.')) return;
+  currentUser = null;
+  document.getElementById('user-badge').style.display='none';
+  document.getElementById('login-overlay').style.display='flex';
+  document.getElementById('login-name').value='';
+  document.getElementById('login-class').value='';
+  document.getElementById('login-resume').style.display='none';
+  // Clear form fields
+  document.querySelectorAll('textarea,input[type=text],input[type=hidden]').forEach(f=>{if(f.id&&f.id.startsWith('t'))f.value='';});
+  document.querySelectorAll('.ms-stmt-btn').forEach(b=>b.classList.remove('av','an','ab','anb'));
+}
+
+function save(){
+  try{
+    const d={};
+    document.querySelectorAll('textarea,input[type=text],input[type=hidden]').forEach(f=>{if(f.id)d[f.id]=f.value;});
+    const key = currentUser ? currentUser.key : 'bw_ms2';
+    localStorage.setItem(key, JSON.stringify(d));
+    const s=document.getElementById('ms-save');
+    s.textContent='✓ Progress saved for '+( currentUser ? currentUser.name : 'you');
+    s.classList.add('saved');
+    setTimeout(()=>{s.textContent='Responses saved automatically';s.classList.remove('saved');},2500);
+  }catch(e){}
+}
+
+function loadProgress(){
+  try{
+    const key = currentUser ? currentUser.key : 'bw_ms2';
+    const d=JSON.parse(localStorage.getItem(key)||'{}');
+    Object.entries(d).forEach(([id,val])=>{
+      const el=document.getElementById(id);if(!el)return;el.value=val;
+      if(el.type==='hidden'&&val){
+        const row=el.closest('.ms-stmt-row');if(!row)return;
+        row.querySelectorAll('.ms-stmt-btn').forEach(b=>{
+          const m=b.getAttribute('onclick').match(/'([^']+)'\)$/);
+          if(m&&m[1]===val){const cls=val==='yes'||val==='bool'?'a'+(val==='yes'?'v':'b'):'an'+(val==='no'?'':'b');b.classList.add(cls);}
+        });
+      }
+    });
+  }catch(e){}
+}
+
+/* ══ CHECK FOR RETURNING USER ON PAGE LOAD ══ */
+window.addEventListener('DOMContentLoaded', () => {
+  try {
+    const last = JSON.parse(localStorage.getItem('bw_last_user') || 'null');
+    if (last && last.name && last.cls) {
+      const existing = localStorage.getItem(last.key);
+      if (existing) {
+        document.getElementById('login-resume').style.display='block';
+        document.getElementById('login-resume-msg').textContent=`Found saved progress for ${last.name} (${last.cls}). Enter your details to continue.`;
+      }
+      document.getElementById('login-name').value = last.name;
+      document.getElementById('login-class').value = last.cls;
+    }
+  } catch(e) {}
+});
+
+document.addEventListener('input',save);
+function hc(id){return(document.getElementById(id)?.value||'').trim().length>3;}
+
+function gradeInfo(s){
+  if(s>=18)return{label:'Outstanding / E',emoji:'🌟',color:'#107c10',bg:'#dff6dd',ring:'#107c10',msg:"Exceptional work! You have a deep understanding of Boolean expressions. You're ready for the next challenge!"};
+  if(s>=15)return{label:'Exceeds / M+',emoji:'🎯',color:'#8a4000',bg:'#fff4ce',ring:'#c7922a',msg:"Great job! Most concepts are correct with only minor errors. You clearly understand Boolean vs opinion."};
+  if(s>=11)return{label:'Meets / M',emoji:'👍',color:'#5a3e00',bg:'#fff4ce',ring:'#c7922a',msg:"Good effort! Core concepts are understood. Review any questions you weren't sure about and you'll be there."};
+  return{label:'Below / B',emoji:'📚',color:'#c50f1f',bg:'#fde7e9',ring:'#c50f1f',msg:"Keep going! Review the marking guide and try again. Boolean fundamentals take practice — you've got this."};
+}
+
+function confetti(container,count=18){
+  const colors=['#6264a7','#107c10','#c7922a','#0078d4','#c50f1f','#e8d700'];
+  for(let i=0;i<count;i++){
+    const d=document.createElement('div');
+    d.className='conf-dot';
+    d.style.cssText=`left:${Math.random()*100}%;top:0;background:${colors[Math.floor(Math.random()*colors.length)]};animation-delay:${Math.random()*.6}s;animation-duration:${.8+Math.random()*.6}s;width:${6+Math.random()*6}px;height:${6+Math.random()*6}px`;
+    container.appendChild(d);
+    setTimeout(()=>d.remove(),1800);
+  }
+}
+
+function animateCount(el,target,duration=900){
+  const start=Date.now();
+  const tick=()=>{
+    const elapsed=Date.now()-start;
+    const progress=Math.min(elapsed/duration,1);
+    const ease=1-Math.pow(1-progress,3);
+    el.textContent=Math.round(ease*target);
+    if(progress<1)requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+function renderResult(tier,total,qs){
+  const g=gradeInfo(total);
+  const pct=Math.round(total/20*100);
+  const container=document.getElementById(`${tier}-result`);
+  container.style.display='block';
+
+  const qRows=qs.map((q,i)=>{
+    const pct2=Math.round(q.earned/q.max*100);
+    const barColor=pct2>=80?'#107c10':pct2>=50?'#c7922a':'#c50f1f';
+    const status=q.earned===q.max?'✅':q.earned>0?'🟡':'❌';
+    return`<div class="qrow" style="animation-delay:${.5+i*.07}s">
+      <span class="qrow-label">Q${i+1}</span>
+      <div class="qrow-bar-bg"><div class="qrow-bar" id="${tier}-qbar${i}" style="width:0%;background:${barColor};--bar-w:${pct2}%"></div></div>
+      <span class="qrow-score" style="color:${barColor}">${q.earned}/${q.max}</span>
+      <span class="qrow-status">${status}</span>
+    </div>`;
+  }).join('');
+
+  const tierName=tier==='t1'?'Tier 1 — Support':tier==='t2'?'Tier 2 — Core':'Tier 3 — Extension';
+  const dateStr=new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+
+  container.innerHTML=`
+  <div class="result-card confetti-wrap" id="${tier}-rc">
+    <div class="result-header" style="background:${g.bg}">
+      <div class="result-circle" style="background:white;border:4px solid ${g.ring}">
+        <div class="big-score" style="color:${g.color}" id="${tier}-cnt">0</div>
+        <div class="of-score" style="color:${g.color}">/ 20</div>
+      </div>
+      <div class="result-grade-badge" style="background:${g.ring};color:white">${g.emoji} ${g.label}</div>
+      <div class="result-name">${tierName} &nbsp;·&nbsp; ${dateStr} &nbsp;·&nbsp; Year 9 Computer Science</div>
+    </div>
+    <hr class="result-divider">
+    <div class="result-body">
+      <div class="result-body-title">Question breakdown</div>
+      ${qRows}
+      <div style="margin-top:14px;background:#f5f5f5;border-radius:6px;overflow:hidden;height:10px">
+        <div id="${tier}-totalbar" style="height:100%;width:0%;background:${g.ring};transition:width 1.2s cubic-bezier(.4,0,.2,1)"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#8a8a8a;margin-top:4px"><span>0</span><span style="font-weight:600;color:${g.color}">${total}/20 — ${pct}%</span><span>20</span></div>
+    </div>
+    <div class="result-footer">
+      <div class="result-msg">${g.msg}</div>
+      <button class="retry-btn" onclick="resetScore('${tier}')">↺ Try again</button>
+      <button class="print-btn" onclick="window.print()">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="3" y="1" width="10" height="5" rx="1" stroke="white" stroke-width="1.5"/><path d="M3 6H2a1 1 0 00-1 1v5a1 1 0 001 1h1M13 6h1a1 1 0 011 1v5a1 1 0 01-1 1h-1" stroke="white" stroke-width="1.5"/><rect x="3" y="10" width="10" height="5" rx="1" stroke="white" stroke-width="1.5"/></svg>
+        Print / Save PDF
+      </button>
+    </div>
+  </div>`;
+
+  // Animate count-up
+  setTimeout(()=>{
+    animateCount(document.getElementById(`${tier}-cnt`),total);
+    document.getElementById(`${tier}-totalbar`).style.width=pct+'%';
+    qs.forEach((_,i)=>{
+      const bar=document.getElementById(`${tier}-qbar${i}`);
+      if(bar)setTimeout(()=>{bar.style.width=Math.round(qs[i].earned/qs[i].max*100)+'%';},100+i*80);
+    });
+    if(total>=15)confetti(document.getElementById(`${tier}-rc`),total>=18?30:18);
+  },100);
+
+  container.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function resetScore(tier){
+  const c=document.getElementById(`${tier}-result`);
+  c.style.display='none';
+  c.innerHTML='';
+}
+
+function submitScore(tier){
+  if(tier==='t1'){
+    let qs=[];
+    let s1=0;
+    const a=(document.getElementById('t1q1a')?.value||'').toLowerCase().trim();
+    const b=(document.getElementById('t1q1b')?.value||'').toLowerCase().trim();
+    if(a==='true')s1++;if(b==='false')s1++;
+    qs.push({earned:s1,max:2});
+
+    let s2=0;
+    const c2={t1q2a:'bool',t1q2b:'notbool',t1q2c:'bool',t1q2d:'notbool'};
+    Object.entries(c2).forEach(([id,ans])=>{if(document.getElementById(id)?.value===ans)s2++;});
+    qs.push({earned:s2,max:4});
+
+    let s3=0;
+    const c3={t1q3a:'yes',t1q3b:'no',t1q3c:'yes',t1q3d:'no'};
+    Object.entries(c3).forEach(([id,ans])=>{const v=(document.getElementById(id)?.value||'').replace(/[" ]/g,'').toLowerCase();if(v===ans)s3++;});
+    qs.push({earned:s3,max:4});
+
+    let s4=0;if(hc('t1q4a'))s4+=2;if(hc('t1q4b'))s4+=2;
+    qs.push({earned:s4,max:4});
+
+    let s5=0;if(hc('t1q5a'))s5+=2;if(hc('t1q5b'))s5++;if(hc('t1q5c'))s5++;
+    qs.push({earned:Math.min(s5,6),max:6});
+
+    renderResult('t1',Math.min(qs.reduce((a,q)=>a+q.earned,0),20),qs);
+  }
+  else if(tier==='t2'){
+    let qs=[];
+    qs.push({earned:hc('t2q1')?2:0,max:2});
+
+    let s2=0;
+    const c2={t2q2a:'yes',t2q2b:'no',t2q2c:'yes',t2q2d:'no',t2q2e:'yes',t2q2f:'no'};
+    Object.entries(c2).forEach(([id,ans])=>{if(document.getElementById(id)?.value===ans)s2+=0.5;if(hc(id+'-r'))s2+=0.5;});
+    qs.push({earned:Math.min(Math.round(s2*10)/10,6),max:6});
+
+    qs.push({earned:hc('t2q3')?4:0,max:4});
+    qs.push({earned:(hc('t2q4a')&&hc('t2q4b'))?4:hc('t2q4a')||hc('t2q4b')?2:0,max:4});
+    qs.push({earned:hc('t2q5')?4:0,max:4});
+
+    const total=Math.min(Math.round(qs.reduce((a,q)=>a+q.earned,0)),20);
+    renderResult('t2',total,qs.map(q=>({...q,earned:Math.round(q.earned)})));
+  }
+  else if(tier==='t3'){
+    let qs=[];
+    qs.push({earned:hc('t3q1')?2:0,max:2});
+    qs.push({earned:(hc('t3q2a')&&hc('t3q2b'))?4:hc('t3q2a')||hc('t3q2b')?2:0,max:4});
+    qs.push({earned:(hc('t3q3a')&&hc('t3q3b'))?4:hc('t3q3a')||hc('t3q3b')?2:0,max:4});
+    qs.push({earned:(hc('t3q4a')&&hc('t3q4b'))?6:hc('t3q4a')||hc('t3q4b')?3:0,max:6});
+    qs.push({earned:(hc('t3q5a')&&hc('t3q5b'))?4:hc('t3q5a')||hc('t3q5b')?2:0,max:4});
+    renderResult('t3',Math.min(qs.reduce((a,q)=>a+q.earned,0),20),qs);
+  }
+}
+</script>
+
+<!-- ══ DASHBOARD STYLES ══ -->
+<style>
+.dash-wrap{max-width:900px;margin:0 auto;padding:0 0 60px}
+.dash-header{background:#464775;border-radius:6px;padding:20px 24px;color:white;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.dash-header h2{font-size:18px;font-weight:700;margin-bottom:2px}
+.dash-header p{font-size:12px;opacity:.75}
+.dash-pw-wall{background:white;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.1);padding:40px 32px;text-align:center;margin-bottom:16px}
+.dash-pw-wall h3{font-size:18px;font-weight:700;margin-bottom:8px;color:#242424}
+.dash-pw-wall p{font-size:13px;color:#616161;margin-bottom:20px}
+.dash-pw-input{border:1.5px solid #d1d1d1;border-radius:4px;padding:9px 14px;font-size:14px;font-family:inherit;width:260px;outline:none;margin-bottom:10px;display:block;margin-left:auto;margin-right:auto}
+.dash-pw-input:focus{border-color:#464775}
+.dash-pw-btn{background:#464775;color:white;border:none;border-radius:4px;padding:9px 28px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+.dash-pw-btn:hover{background:#6264a7}
+.dash-pw-err{color:#c50f1f;font-size:12px;margin-top:6px;display:none}
+.dash-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+.dash-stat{background:white;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.08);padding:14px 16px;text-align:center}
+.dash-stat .val{font-size:26px;font-weight:700;line-height:1;margin-bottom:3px}
+.dash-stat .lbl{font-size:11px;color:#8a8a8a;text-transform:uppercase;letter-spacing:.05em}
+.dash-table-wrap{background:white;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.08);overflow:hidden;margin-bottom:14px}
+.dash-table-hdr{padding:12px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e8e8e8;flex-wrap:wrap;gap:8px}
+.dash-table-hdr h3{font-size:14px;font-weight:700;color:#242424}
+.dash-actions{display:flex;gap:8px}
+.dash-btn{background:transparent;border:1px solid #d1d1d1;border-radius:3px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;color:#464775;transition:all .12s}
+.dash-btn:hover{background:#e8e8f4;border-color:#464775}
+.dash-btn.danger{color:#c50f1f;border-color:#c50f1f}.dash-btn.danger:hover{background:#fde7e9}
+.dash-table{width:100%;border-collapse:collapse;font-size:13px}
+.dash-table th{text-align:left;padding:9px 14px;background:#f5f5f5;border-bottom:2px solid #e8e8e8;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#8a8a8a;font-weight:700;white-space:nowrap}
+.dash-table td{padding:10px 14px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+.dash-table tr:last-child td{border-bottom:none}
+.dash-table tr:hover td{background:#fafafa}
+.grade-pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px;white-space:nowrap}
+.gE{background:#dff6dd;color:#107c10}.gMp{background:#fff4ce;color:#8a4000}.gM{background:#fff0d4;color:#c7922a}.gB{background:#fde7e9;color:#c50f1f}
+.tier-pill{font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;white-space:nowrap}
+.tp1{background:#dff6dd;color:#107c10}.tp2{background:#fff4ce;color:#8a4000}.tp3{background:#fde7e9;color:#c50f1f}
+.dash-empty{text-align:center;padding:48px 20px;color:#8a8a8a}
+.dash-empty svg{opacity:.3;margin-bottom:12px}
+.dash-empty p{font-size:14px}
+.dash-filter{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.dash-filter select{border:1px solid #d1d1d1;border-radius:3px;padding:5px 10px;font-size:12px;font-family:inherit;color:#242424;outline:none;cursor:pointer}
+.dash-filter select:focus{border-color:#464775}
+.dash-search{border:1px solid #d1d1d1;border-radius:3px;padding:5px 10px;font-size:12px;font-family:inherit;color:#242424;outline:none;width:160px}
+.dash-search:focus{border-color:#464775}
+.bar-mini{display:inline-block;height:6px;border-radius:3px;vertical-align:middle;margin-right:4px;min-width:4px}
+.dash-expanded{background:#f9f9ff;border-left:3px solid #464775;padding:10px 14px;font-size:12px;color:#424242;display:none}
+.dash-expanded.open{display:block}
+.dash-exp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:6px;margin-top:6px}
+.dash-exp-q{background:white;border:1px solid #e8e8e8;border-radius:3px;padding:6px 10px;font-size:11px}
+.dash-exp-q strong{display:block;color:#464775;margin-bottom:2px}
+.dash-chart-wrap{background:white;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.08);padding:18px 20px;margin-bottom:14px}
+.dash-chart-wrap h3{font-size:13px;font-weight:700;margin-bottom:14px;color:#242424}
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:100px}
+.bar-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:4px}
+.bar-col .bar-body{width:100%;border-radius:3px 3px 0 0;transition:height .6s cubic-bezier(.4,0,.2,1)}
+.bar-col .bar-lbl{font-size:10px;color:#8a8a8a;text-align:center;white-space:nowrap}
+.bar-col .bar-val{font-size:11px;font-weight:700;color:#464775}
+@media(max-width:600px){.dash-stats{grid-template-columns:1fr 1fr}.dash-table th:nth-child(4),.dash-table td:nth-child(4){display:none}}
+</style>
+
+<script>
+/* ══ SUBMISSION STORAGE KEY ══ */
+const SUB_KEY = 'bw_submissions_v1';
+const DASH_PW = 'boolean-teacher-2026';
+
+/* ══ Save a submission ══ */
+function saveSubmission(tier, score, qs, name) {
+  const all = getSubmissions();
+  const entry = {
+    id: Date.now(),
+    name: name || 'Anonymous',
+    tier: tier,
+    score: score,
+    qs: qs,
+    grade: gradeInfo(score).label,
+    time: new Date().toLocaleString('en-GB', {day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}),
+    timestamp: Date.now()
+  };
+  all.push(entry);
+  localStorage.setItem(SUB_KEY, JSON.stringify(all));
+}
+
+function getSubmissions() {
+  try { return JSON.parse(localStorage.getItem(SUB_KEY) || '[]'); } catch(e) { return []; }
+}
+
+/* ══ Patch renderResult to also save submission ══ */
+const _origRender = renderResult;
+window.renderResult = function(tier, total, qs) {
+  _origRender(tier, total, qs);
+  const name = currentUser ? currentUser.name + ' (' + currentUser.cls + ')' : (prompt('Enter your name to record your submission:') || 'Anonymous');
+  saveSubmission(tier, total, qs, name);
+};
+
+/* ══ DASHBOARD ══ */
+let dashUnlocked = false;
+let dashFilter = { tier: 'all', grade: 'all', search: '' };
+let expandedRow = null;
+
+function loadDashboard() {
+  const panel = document.getElementById('tier-dash');
+  if (!dashUnlocked) {
+    renderPwWall(panel);
+  } else {
+    renderDash(panel);
+  }
+}
+
+function renderPwWall(panel) {
+  panel.innerHTML = `
+  <div class="dash-wrap">
+    <div class="dash-pw-wall">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" style="display:block;margin:0 auto 16px">
+        <rect width="48" height="48" rx="10" fill="#e8e8f4"/>
+        <path d="M32 22v-4a8 8 0 00-16 0v4h-2a2 2 0 00-2 2v14a2 2 0 002 2h20a2 2 0 002-2V24a2 2 0 00-2-2h-2zm-10 8a2 2 0 114 0v3h-4v-3zm2-14a4 4 0 014 4v4h-8v-4a4 4 0 014-4z" fill="#464775"/>
+      </svg>
+      <h3>Teacher Dashboard</h3>
+      <p>Enter the teacher password to view all student submissions.</p>
+      <input class="dash-pw-input" type="password" id="dash-pw" placeholder="Teacher password…" onkeydown="if(event.key==='Enter')checkDashPw()">
+      <br>
+      <button class="dash-pw-btn" onclick="checkDashPw()">Unlock Dashboard</button>
+      <div class="dash-pw-err" id="dash-pw-err">❌ Incorrect password. Try again.</div>
+    </div>
+  </div>`;
+}
+
+function checkDashPw() {
+  const pw = document.getElementById('dash-pw').value;
+  if (pw === DASH_PW) {
+    dashUnlocked = true;
+    renderDash(document.getElementById('tier-dash'));
+  } else {
+    document.getElementById('dash-pw-err').style.display = 'block';
+    document.getElementById('dash-pw').value = '';
+    document.getElementById('dash-pw').focus();
+  }
+}
+
+function renderDash(panel) {
+  const all = getSubmissions();
+  const filtered = filterSubs(all);
+
+  // Stats
+  const total = all.length;
+  const avgScore = total ? Math.round(all.reduce((s,r)=>s+r.score,0)/total*10)/10 : '—';
+  const gradeCount = {E:0,'M+':0,M:0,B:0};
+  all.forEach(r => {
+    if(r.score>=18)gradeCount.E++;
+    else if(r.score>=15)gradeCount['M+']++;
+    else if(r.score>=11)gradeCount.M++;
+    else gradeCount.B++;
+  });
+  const tierCount = {t1:0,t2:0,t3:0};
+  all.forEach(r=>{ if(tierCount[r.tier]!==undefined)tierCount[r.tier]++; });
+
+  panel.innerHTML = `
+  <div class="dash-wrap">
+    <div class="dash-header">
+      <div>
+        <h2>📊 Teacher Dashboard</h2>
+        <p>Boolean Expressions · Year 9 · Lesson 6 &nbsp;·&nbsp; ${total} submission${total!==1?'s':''} recorded</p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="dash-btn" onclick="exportCSV()">⬇ Export CSV</button>
+        <button class="dash-btn danger" onclick="clearAll()">🗑 Clear All</button>
+        <button class="dash-btn" onclick="renderDash(document.getElementById('tier-dash'))">↺ Refresh</button>
+      </div>
+    </div>
+
+    <div class="dash-stats">
+      <div class="dash-stat"><div class="val" style="color:#464775">${total}</div><div class="lbl">Submissions</div></div>
+      <div class="dash-stat"><div class="val" style="color:#107c10">${avgScore}</div><div class="lbl">Avg Score</div></div>
+      <div class="dash-stat"><div class="val" style="color:#107c10">${gradeCount.E}</div><div class="lbl">Outstanding E</div></div>
+      <div class="dash-stat"><div class="val" style="color:#8a4000">${gradeCount['M+']}</div><div class="lbl">Exceeds M+</div></div>
+      <div class="dash-stat"><div class="val" style="color:#c7922a">${gradeCount.M}</div><div class="lbl">Meets M</div></div>
+      <div class="dash-stat"><div class="val" style="color:#c50f1f">${gradeCount.B}</div><div class="lbl">Below B</div></div>
+    </div>
+
+    ${total > 0 ? renderBarChart(all) : ''}
+
+    <div class="dash-table-wrap">
+      <div class="dash-table-hdr">
+        <h3>All Submissions</h3>
+        <div class="dash-actions">
+          <input class="dash-search" type="text" placeholder="Search name…" value="${dashFilter.search}" oninput="dashFilter.search=this.value;renderDash(document.getElementById('tier-dash'))">
+          <select class="dash-filter" onchange="dashFilter.tier=this.value;renderDash(document.getElementById('tier-dash'))">
+            <option value="all" ${dashFilter.tier==='all'?'selected':''}>All Tiers</option>
+            <option value="t1" ${dashFilter.tier==='t1'?'selected':''}>Tier 1</option>
+            <option value="t2" ${dashFilter.tier==='t2'?'selected':''}>Tier 2</option>
+            <option value="t3" ${dashFilter.tier==='t3'?'selected':''}>Tier 3</option>
+          </select>
+          <select class="dash-filter" onchange="dashFilter.grade=this.value;renderDash(document.getElementById('tier-dash'))">
+            <option value="all" ${dashFilter.grade==='all'?'selected':''}>All Grades</option>
+            <option value="E" ${dashFilter.grade==='E'?'selected':''}>Outstanding E</option>
+            <option value="M+" ${dashFilter.grade==='M+'?'selected':''}>Exceeds M+</option>
+            <option value="M" ${dashFilter.grade==='M'?'selected':''}>Meets M</option>
+            <option value="B" ${dashFilter.grade==='B'?'selected':''}>Below B</option>
+          </select>
+        </div>
+      </div>
+      ${filtered.length === 0 ? renderEmpty(total) : renderTable(filtered)}
+    </div>
+  </div>`;
+}
+
+function filterSubs(all) {
+  return all.filter(r => {
+    const tierOk = dashFilter.tier === 'all' || r.tier === dashFilter.tier;
+    const gradeOk = dashFilter.grade === 'all' ||
+      (dashFilter.grade==='E' && r.score>=18) ||
+      (dashFilter.grade==='M+' && r.score>=15 && r.score<18) ||
+      (dashFilter.grade==='M' && r.score>=11 && r.score<15) ||
+      (dashFilter.grade==='B' && r.score<11);
+    const searchOk = !dashFilter.search || r.name.toLowerCase().includes(dashFilter.search.toLowerCase());
+    return tierOk && gradeOk && searchOk;
+  }).sort((a,b)=>b.timestamp-a.timestamp);
+}
+
+function renderEmpty(total) {
+  return `<div class="dash-empty">
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="8" fill="#f0f0f8"/><path d="M14 16h20v20H14z" stroke="#8a8a8a" stroke-width="2" fill="none"/><path d="M19 22h10M19 27h6" stroke="#8a8a8a" stroke-width="2" stroke-linecap="round"/></svg>
+    <p>${total===0 ? 'No submissions yet.<br>Students need to click <strong>"Submit & See My Score"</strong> to appear here.' : 'No submissions match your filters.'}</p>
+  </div>`;
+}
+
+function renderTable(rows) {
+  const tierLabel = {t1:'Tier 1',t2:'Tier 2',t3:'Tier 3'};
+  const tierClass = {t1:'tp1',t2:'tp2',t3:'tp3'};
+  return `<table class="dash-table">
+    <thead><tr>
+      <th>#</th><th>Student Name</th><th>Tier</th><th>Score</th><th>Grade</th><th>Q Breakdown</th><th>Submitted</th><th></th>
+    </tr></thead>
+    <tbody>
+      ${rows.map((r,i)=>{
+        const gc = r.score>=18?'gE':r.score>=15?'gMp':r.score>=11?'gM':'gB';
+        const bars = r.qs ? r.qs.map((q,qi)=>{
+          const pct=Math.round(q.earned/q.max*100);
+          const c=pct>=80?'#107c10':pct>=50?'#c7922a':'#c50f1f';
+          return `<span class="bar-mini" style="width:${Math.max(4,pct*0.3)}px;background:${c}" title="Q${qi+1}: ${q.earned}/${q.max}"></span>`;
+        }).join('') : '';
+        return `<tr>
+          <td style="color:#8a8a8a;font-size:11px">${i+1}</td>
+          <td style="font-weight:600">${r.name}</td>
+          <td><span class="tier-pill ${tierClass[r.tier]||'tp1'}">${tierLabel[r.tier]||r.tier}</span></td>
+          <td><strong style="font-size:15px">${r.score}</strong><span style="color:#8a8a8a;font-size:11px">/20</span></td>
+          <td><span class="grade-pill ${gc}">${r.grade}</span></td>
+          <td>${bars}</td>
+          <td style="font-size:11px;color:#8a8a8a;white-space:nowrap">${r.time}</td>
+          <td><button class="dash-btn" style="font-size:11px;padding:3px 8px" onclick="toggleExpand(${r.id})">▼ Details</button></td>
+        </tr>
+        <tr id="exp-${r.id}"><td colspan="8" style="padding:0">
+          <div class="dash-expanded" id="exp-inner-${r.id}">
+            <strong style="font-size:12px;color:#464775">Question Breakdown — ${r.name}</strong>
+            <div class="dash-exp-grid" style="margin-top:8px">
+              ${r.qs ? r.qs.map((q,qi)=>{
+                const pct=Math.round(q.earned/q.max*100);
+                const c=pct>=80?'#107c10':pct>=50?'#c7922a':'#c50f1f';
+                return `<div class="dash-exp-q">
+                  <strong style="color:${c}">Q${qi+1} — ${q.earned}/${q.max} marks</strong>
+                  <div style="background:#f0f0f0;border-radius:2px;height:5px;margin-top:4px;overflow:hidden">
+                    <div style="width:${pct}%;height:100%;background:${c};border-radius:2px"></div>
+                  </div>
+                </div>`;
+              }).join('') : '<div style="color:#8a8a8a;font-size:12px">No breakdown available</div>'}
+            </div>
+          </div>
+        </td></tr>`;
+      }).join('')}
+    </tbody>
+  </table>`;
+}
+
+function renderBarChart(all) {
+  const grades = [
+    {label:'Outstanding\nE (18–20)',min:18,max:20,color:'#107c10'},
+    {label:'Exceeds\nM+ (15–17)',min:15,max:17,color:'#c7922a'},
+    {label:'Meets\nM (11–14)',min:11,max:14,color:'#8a4000'},
+    {label:'Below\nB (0–10)',min:0,max:10,color:'#c50f1f'},
+  ];
+  const counts = grades.map(g=>all.filter(r=>r.score>=g.min&&r.score<=g.max).length);
+  const maxC = Math.max(...counts,1);
+  const bars = grades.map((g,i)=>`
+    <div class="bar-col">
+      <div class="bar-val">${counts[i]}</div>
+      <div class="bar-body" style="height:${Math.max(4,counts[i]/maxC*80)}px;background:${g.color}"></div>
+      <div class="bar-lbl" style="font-size:9px;color:#8a8a8a;text-align:center;line-height:1.3">${g.label.replace('\n','<br>')}</div>
+    </div>`).join('');
+  return `<div class="dash-chart-wrap">
+    <h3>Grade Distribution</h3>
+    <div class="bar-chart">${bars}</div>
+  </div>`;
+}
+
+function toggleExpand(id) {
+  const inner = document.getElementById('exp-inner-'+id);
+  if (!inner) return;
+  const isOpen = inner.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.dash-expanded').forEach(el=>el.classList.remove('open'));
+  if (!isOpen) inner.classList.add('open');
+}
+
+function exportCSV() {
+  const all = getSubmissions();
+  if (!all.length) { alert('No submissions to export.'); return; }
+  const rows = [['Name','Tier','Score','Grade','Q1','Q2','Q3','Q4','Q5','Submitted']];
+  all.forEach(r => {
+    const qScores = r.qs ? r.qs.map(q=>`${q.earned}/${q.max}`) : ['','','','',''];
+    while(qScores.length<5) qScores.push('');
+    rows.push([r.name, r.tier, r.score, r.grade, ...qScores.slice(0,5), r.time]);
+  });
+  const csv = rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `boolean-expressions-results-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+
+function clearAll() {
+  if (confirm('Delete ALL submissions? This cannot be undone.')) {
+    localStorage.removeItem(SUB_KEY);
+    renderDash(document.getElementById('tier-dash'));
+  }
+}
+</script>
+
+</body>
+</html>
+<script>
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbw3vSRW7zOF7Hc8TpVOkc7MjD8N4RyGTatZLE4C7ko721YJdexic4T0XSCM3ILaIO8A/exec';
+const _origSaveSubmission = window.saveSubmission;
+window.saveSubmission = function(tier, score, qs, name) {
+  if(_origSaveSubmission) _origSaveSubmission(tier, score, qs, name);
+  const payload = {
+    name: name || 'Anonymous',
+    cls: currentUser ? currentUser.cls : '—',
+    tier: tier==='t1'?'Tier 1 — Support':tier==='t2'?'Tier 2 — Core':'Tier 3 — Extension',
+    score: score,
+    grade: gradeInfo(score).label,
+    q1: qs[0]?qs[0].earned+'/'+qs[0].max:'—',
+    q2: qs[1]?qs[1].earned+'/'+qs[1].max:'—',
+    q3: qs[2]?qs[2].earned+'/'+qs[2].max:'—',
+    q4: qs[3]?qs[3].earned+'/'+qs[3].max:'—',
+    q5: qs[4]?qs[4].earned+'/'+qs[4].max:'—',
+    worksheet: 'Boolean Expressions'
+  };
+  if(GOOGLE_SHEET_URL.includes('REPLACE')) return;
+  fetch(GOOGLE_SHEET_URL, {method:'POST', body:JSON.stringify(payload)})
+    .catch(()=>{});
+};
+</script>
